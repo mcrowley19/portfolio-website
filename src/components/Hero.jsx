@@ -29,7 +29,6 @@ export default function Hero() {
           </div>
 
           <div className="flex gap-6 text-xs text-text-muted font-mono pb-1">
-            <span>53.3N, 6.2W</span>
             <span>Dublin, IE</span>
           </div>
         </div>
@@ -37,10 +36,6 @@ export default function Hero() {
 
       <div className="mt-8 flex items-center gap-3">
         <div className="h-px flex-1 bg-border" />
-        <span className="text-[10px] text-text-dim tracking-widest uppercase">
-          Scroll
-        </span>
-        <div className="w-4 h-px bg-text-dim" />
       </div>
     </section>
   );

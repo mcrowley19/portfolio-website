@@ -6,49 +6,56 @@ const books = [
     title: 'The Count of Monte Cristo',
     author: 'Alexandre Dumas',
     year: '1844',
-    review: '',
+    review: 'A masterful tale of revenge and redemption. The intricate plotting is exceptional—every element serves the story. A deeply satisfying exploration of justice, forgiveness, and human nature.',
+    buyLink: 'https://www.amazon.com/Count-Monte-Cristo-Alexandre-Dumas/s?k=Count+of+Monte+Cristo',
     category: 'Fiction',
   },
   {
     title: 'The Stranger',
     author: 'Albert Camus',
     year: '1942',
-    review: '',
+    review: 'A philosophical novella that challenges conventional morality. Camus presents an absurd protagonist that forces you to question your own values. Haunting and thought-provoking.',
+    buyLink: 'https://www.amazon.com/Stranger-Albert-Camus/s?k=The+Stranger+Albert+Camus',
     category: 'Fiction',
   },
   {
     title: 'Les Misérables',
     author: 'Victor Hugo',
     year: '1862',
-    review: '',
+    review: 'An epic of breathtaking scope and human compassion. Hugo weaves social commentary with deeply personal stories. The redemption arc is one of literature\'s most powerful.',
+    buyLink: 'https://www.amazon.com/Les-Miserables-Victor-Hugo/s?k=Les+Miserables',
     category: 'Fiction',
   },
   {
     title: 'The Idiot',
     author: 'Fyodor Dostoevsky',
     year: '1869',
-    review: '',
+    review: 'A profound exploration of goodness in a corrupted world. The protagonist\'s innocence against society\'s cruelty creates tragic beauty. Dostoevsky at his most philosophical and moving.',
+    buyLink: 'https://www.amazon.com/Idiot-Fyodor-Dostoevsky/s?k=The+Idiot+Dostoevsky',
     category: 'Fiction',
   },
   {
     title: 'War and Peace',
     author: 'Leo Tolstoy',
     year: '1869',
-    review: '',
+    review: 'An unparalleled achievement in literature. Tolstoy captures the human condition across war and peace, weaving philosophy into intimate character studies. Absolutely transformative.',
+    buyLink: 'https://www.amazon.com/War-Peace-Leo-Tolstoy/s?k=War+and+Peace',
     category: 'Fiction',
   },
   {
     title: 'Discrete Mathematics and Its Applications',
     author: 'Kenneth H. Rosen',
     year: '1988',
-    review: '',
+    review: 'The essential foundation for computer science. Clear explanations of complex concepts make it accessible. Invaluable for understanding algorithms, logic, and computational thinking.',
+    buyLink: 'https://www.amazon.com/Discrete-Mathematics-Applications-Kenneth-Rosen/s?k=Discrete+Mathematics+Rosen',
     category: 'Technical',
   },
   {
     title: 'Introduction to Machine Learning with Python',
     author: 'Andreas C. Müller & Sarah Guido',
     year: '2016',
-    review: '',
+    review: 'Practical and well-structured introduction to ML concepts. The balance between theory and implementation is excellent. Great for building intuition before diving deeper.',
+    buyLink: 'https://www.amazon.com/Introduction-Machine-Learning-Python-Andreas/s?k=Introduction+Machine+Learning+Python',
     category: 'Technical',
   },
 ]
@@ -76,9 +83,15 @@ function BookEntry({ book, index }) {
             <span className="font-mono text-[10px] text-text-dim w-5 shrink-0">
               {String(index + 1).padStart(2, '0')}
             </span>
-            <h3 className="text-text-bright text-sm font-medium group-hover:text-accent transition-colors duration-300 leading-snug">
+            <a
+              href={book.buyLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-text-bright text-sm font-medium group-hover:text-accent transition-colors duration-300 leading-snug hover:underline"
+              onClick={(e) => hasReview && e.stopPropagation()}
+            >
               {book.title}
-            </h3>
+            </a>
           </div>
 
           {/* Author */}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useInView } from '../hooks/useInView'
 
 const projects = [
@@ -60,8 +60,9 @@ const langColors = {
   Java: '#b07219',
 }
 
-function ProjectCard({ project, index, onOpen }) {
+function ProjectCard({ project, index }) {
   const [ref, isInView] = useInView()
+  const navigate = useNavigate()
 
   return (
     <div
@@ -72,7 +73,7 @@ function ProjectCard({ project, index, onOpen }) {
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <button
-        onClick={() => onOpen(project)}
+        onClick={() => navigate(`/project/${project.name}`)}
         className="w-full text-left group cursor-pointer"
       >
         {/* Thumbnail */}
@@ -115,104 +116,8 @@ function ProjectCard({ project, index, onOpen }) {
   )
 }
 
-function ProjectModal({ project, onClose }) {
-  return (
-    <>
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-bg/40 backdrop-blur-sm z-40 transition-opacity duration-300"
-        onClick={onClose}
-      />
-
-      {/* Modal */}
-      <div className="fixed inset-4 md:inset-16 z-50 flex flex-col bg-bg-elevated border border-border overflow-hidden">
-        {/* Header */}
-        <div className="border-b border-border px-6 md:px-10 py-6 flex items-center justify-between shrink-0">
-          <h2 className="text-lg md:text-xl font-bold text-text-bright">{project.name}</h2>
-          <button
-            onClick={onClose}
-            className="text-text-muted hover:text-text transition-colors p-1"
-            aria-label="Close"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M6 6l12 12M6 18L18 6" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 overflow-y-auto px-6 md:px-10 py-8">
-          {/* Thumbnail */}
-          <div className="aspect-video overflow-hidden border border-border bg-bg-card mb-8">
-            <img
-              src={project.thumbnail}
-              alt={project.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Description */}
-          <div className="max-w-3xl">
-            <div className="mb-8">
-              <p className="text-text-dim text-[10px] tracking-widest uppercase mb-3">About</p>
-              <p className="text-text text-base leading-relaxed">
-                {project.long}
-              </p>
-            </div>
-
-            {/* Meta */}
-            <div className="border-t border-border pt-6">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div>
-                  <p className="text-text-dim text-[10px] tracking-widest uppercase mb-2">Language</p>
-                  <p className="text-text text-sm font-mono">{project.lang}</p>
-                </div>
-                {project.live && (
-                  <div>
-                    <p className="text-text-dim text-[10px] tracking-widest uppercase mb-2">Status</p>
-                    <span className="text-accent text-sm font-mono">Live</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer — Links */}
-        <div className="border-t border-border px-6 md:px-10 py-6 flex gap-4 shrink-0">
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-text-muted hover:text-accent transition-colors font-mono"
-          >
-            Source Code
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M6 3l5 5-5 5" />
-            </svg>
-          </a>
-          {project.live && (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-accent hover:text-accent-hover transition-colors font-mono"
-            >
-              View Live
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M6 3l5 5-5 5" />
-              </svg>
-            </a>
-          )}
-        </div>
-      </div>
-    </>
-  )
-}
-
 export default function Projects() {
   const [headerRef, headerInView] = useInView()
-  const [selectedProject, setSelectedProject] = useState(null)
 
   return (
     <section className="px-6 md:px-10 py-24 max-w-6xl mx-auto">
@@ -228,23 +133,15 @@ export default function Projects() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-10">
+      <div className="space-y-10">
         {projects.map((project, i) => (
           <ProjectCard
             key={project.name}
             project={project}
             index={i}
-            onOpen={setSelectedProject}
           />
         ))}
       </div>
-
-      {selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
-      )}
     </section>
   )
 }
