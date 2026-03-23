@@ -3,9 +3,11 @@ import { useInView } from "../hooks/useInView";
 const facts = [
   { label: "Study", value: "Computer Science" },
   { label: "University", value: "Trinity College Dublin" },
+  { label: "Secondary", value: "CBS Roscommon — 625 points" },
   { label: "Location", value: "Dublin, Ireland" },
   { label: "Languages", value: "Python, Java, TypeScript, JavaScript" },
   { label: "Interests", value: "ML, Systems, Web" },
+  { label: "Volunteering", value: "Hack Europe Associate, TCD Claude Builder Club (1st Year Rep)" },
 ];
 
 export default function About() {
