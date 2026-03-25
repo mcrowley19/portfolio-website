@@ -55,27 +55,6 @@ function ProjectCard({ project }) {
           {project.description}
         </p>
       </button>
-      {project.live && (
-        <a
-          href={project.live}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 mt-3 text-[10px] font-mono text-text-muted hover:text-accent transition-colors"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
-          Live site
-          <svg
-            width="10"
-            height="10"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-          >
-            <path d="M6 3l5 5-5 5" />
-          </svg>
-        </a>
-      )}
     </div>
   );
 }

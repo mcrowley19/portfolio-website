@@ -7,6 +7,7 @@ import learnquotesThumbnail from "../assets/projects/learnquotes.png";
 import blackoutThumbnail from "../assets/projects/blackout.png";
 import tempThumbnail from "../assets/projects/temp&h.jpg";
 import snapswingThumbnail from "../assets/projects/snapswing.png";
+import kangratThumbnail from "../assets/projects/kangrat.png";
 import sol450Carousel from "../assets/carousel-placeholders/sol-450.png";
 import metricareCarousel from "../assets/carousel-placeholders/Metricare.png";
 import shoelaceCarousel from "../assets/carousel-placeholders/shoelace.png";
@@ -170,6 +171,23 @@ export const projects = [
     thumbnail: tempThumbnail,
   },
   {
+    name: "Kangrat",
+    slug: "Kangrat",
+    description:
+      "A professional networking platform with profiles, messaging, job discovery, and a gamified XP levelling system.",
+    long: [
+      "Kangrat is a professional networking web app, similar in concept to LinkedIn, that I built as a solo developer. Users can create profiles with work history, connect with others, and send direct messages.",
+      "The platform features a gamified XP and levelling system that rewards user activity, as well as a people discovery page and full-text search powered by Algolia.",
+      "The frontend was built with React and TypeScript. Firebase is used for authentication, Firestore for the database, and Firebase Storage for profile and background images.",
+    ],
+    tech: ["React", "TypeScript", "Firebase", "Algolia"],
+    date: "Feb 2026",
+    sortDate: "2026-02-15",
+    live: "https://kangrat.com",
+    url: "https://github.com/mcrowley19/questions-site",
+    thumbnail: kangratThumbnail,
+  },
+  {
     name: "Snap and Swing",
     slug: "Snap and Swing",
     description:
@@ -208,4 +226,6 @@ export const techColors = {
   "DHT22 Sensors": "#34d399",
   "Raspberry Pico": "#d44a8a",
   "Raspberry Pi": "#e04070",
+  Firebase: "#ffca28",
+  Algolia: "#5468ff",
 };
