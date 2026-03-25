@@ -11,7 +11,7 @@ export default function About() {
   const [ref, isInView] = useInView();
 
   return (
-    <section className="px-6 md:px-10 max-w-6xl mx-auto">
+    <section className="px-6 md:px-10 py-12 md:py-0 max-w-6xl mx-auto">
       <div ref={ref} className={`reveal ${isInView ? "visible" : ""}`}>
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] gap-10 md:gap-16">
           <div>

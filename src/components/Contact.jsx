@@ -4,7 +4,7 @@ export default function Contact() {
   const [ref, isInView] = useInView();
 
   return (
-    <section className="px-6 md:px-10 py-12 md:py-5 max-w-6xl mx-auto">
+    <section className="px-6 md:px-10 py-14 md:py-5 max-w-6xl mx-auto">
       <div ref={ref} className={`reveal ${isInView ? "visible" : ""}`}>
         <p className="text-text-dim text-[10px] tracking-widest uppercase mb-6 md:mb-8">
           Contact

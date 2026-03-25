@@ -45,7 +45,7 @@ export default function Projects() {
   const project = featured[current];
 
   return (
-    <section className="px-6 md:px-10 py-24 max-w-6xl mx-auto">
+    <section className="px-6 md:px-10 py-14 md:py-24 max-w-6xl mx-auto">
       <div
         ref={headerRef}
         className={`reveal ${headerInView ? "visible" : ""}`}

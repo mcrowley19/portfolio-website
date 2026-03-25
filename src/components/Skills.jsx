@@ -34,7 +34,7 @@ export default function Skills() {
   const [ref, isInView] = useInView();
 
   return (
-    <section className="px-6 md:px-10 py-24 max-w-6xl mx-auto">
+    <section className="px-6 md:px-10 py-14 md:py-24 max-w-6xl mx-auto">
       <div ref={ref} className={`reveal ${isInView ? "visible" : ""}`}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
           {columns.map((col) => (
