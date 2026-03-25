@@ -150,14 +150,9 @@ const books = [
 ];
 
 function BookEntry({ book }) {
-  const [ref, isInView] = useInView();
-
   return (
     <div
-      ref={ref}
-      className={`group border-b border-border transition-all duration-600 ${
-        isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-      }`}
+      className="group border-b border-border"
     >
       <div className="py-6 md:py-8">
         <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_auto] gap-2 md:gap-8 items-start">

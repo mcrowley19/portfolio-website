@@ -85,17 +85,17 @@ export default function SolScene({ onReady }) {
         <Mars onReady={onReady} />
       </Canvas>
 
-      <div className="absolute inset-0 flex flex-col justify-center pl-[5%] pointer-events-none">
-        <p className="text-[8px] sm:text-[9px] tracking-[0.3em] uppercase text-[#c8a080] mb-2 font-mono">
+      <div className="absolute inset-0 flex flex-col justify-end pb-[12%] sm:justify-center sm:pb-0 pl-[5%] pointer-events-none">
+        <p className="text-[8px] sm:text-[9px] tracking-[0.3em] uppercase text-[#c8a080] mb-1 sm:mb-2 font-mono">
           Simulation Platform
         </p>
         <h3
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight"
+          className="text-xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight"
           style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
         >
           Sol-450
         </h3>
-        <p className="text-[9px] sm:text-[10px] text-[#b0a090] mt-2 max-w-[180px] leading-relaxed opacity-75">
+        <p className="hidden sm:block text-[10px] text-[#b0a090] mt-2 max-w-[180px] leading-relaxed opacity-75">
           Modeling sustainable agriculture for humanity&apos;s next frontier.
         </p>
       </div>

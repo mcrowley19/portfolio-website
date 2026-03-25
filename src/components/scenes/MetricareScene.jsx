@@ -146,15 +146,15 @@ export default function MetricareScene({ onReady }) {
         <NotifyReady onReady={onReady} />
       </Canvas>
 
-      <div className="absolute inset-0 flex flex-col items-start justify-center pl-[12%] max-w-xl pointer-events-none">
+      <div className="absolute inset-0 flex flex-col items-start justify-end pb-[12%] sm:justify-center sm:pb-0 pl-[8%] sm:pl-[12%] max-w-xl pointer-events-none">
         <h3
-          className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight"
+          className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight"
           style={{ fontFamily: "'DM Sans', 'Inter', system-ui, sans-serif" }}
         >
           Metricare
         </h3>
         <p
-          className="mt-3 text-xs sm:text-sm text-gray-600 max-w-55 leading-relaxed"
+          className="hidden sm:block mt-3 text-sm text-gray-600 max-w-55 leading-relaxed"
           style={{ fontFamily: "'DM Sans', 'Inter', system-ui, sans-serif" }}
         >
           Patient history and AI in one place. A medical dashboard that stays
