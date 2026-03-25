@@ -4,7 +4,7 @@ export default function Hero() {
   const [ref, isInView] = useInView();
 
   return (
-    <section ref={ref} className="px-6 md:px-10 py-14 md:py-20 max-w-6xl mx-auto">
+    <section ref={ref} className="px-6 md:px-10 pt-14 pb-6 md:py-20 max-w-6xl mx-auto">
       <div className={`reveal ${isInView ? "visible" : ""}`}>
         <div className="w-full max-w-60 mx-auto mb-12">
           <div className="aspect-3/4 overflow-hidden">

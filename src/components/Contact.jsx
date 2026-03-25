@@ -12,8 +12,9 @@ export default function Contact() {
 
         <div className="max-w-xl">
           <p className="text-text text-base md:text-xl font-light leading-relaxed mb-8 md:mb-10">
-            Currently in Dublin. Open to meeting interesting people and working
-            on new projects.
+            Based in Ireland. I am always open to meeting new people and working
+            on interesting projects. Feel free to reach out with the links
+            below.
           </p>
 
           <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">

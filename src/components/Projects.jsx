@@ -127,7 +127,7 @@ export default function Projects() {
             </button>
 
             {/* Text info crossfade */}
-            <div className="relative h-12">
+            <div className="relative h-16 md:h-12">
               {featured.map((p, i) => (
                 <div
                   key={p.name}
@@ -190,7 +190,7 @@ export default function Projects() {
         </div>
 
         {/* Mobile arrows + dot indicators */}
-        <div className="flex items-center justify-center gap-4 mt-6">
+        <div className="flex items-center justify-center gap-4 mt-8 md:mt-6">
           <button
             onClick={prev}
             className="md:hidden shrink-0 w-9 h-9 flex items-center justify-center border border-border-hover bg-surface text-text hover:text-accent hover:border-accent transition-colors duration-200 cursor-pointer"
