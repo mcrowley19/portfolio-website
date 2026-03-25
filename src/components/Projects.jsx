@@ -74,11 +74,12 @@ export default function Projects() {
       </div>
 
       <div className="relative">
-        {/* Carousel with flanking arrows */}
+        {/* Carousel */}
         <div className="flex items-center gap-4">
+          {/* Desktop-only side arrows */}
           <button
             onClick={prev}
-            className="shrink-0 w-10 h-10 flex items-center justify-center border border-border-hover bg-surface text-text hover:text-accent hover:border-accent transition-colors duration-200 cursor-pointer"
+            className="hidden md:flex shrink-0 w-10 h-10 items-center justify-center border border-border-hover bg-surface text-text hover:text-accent hover:border-accent transition-colors duration-200 cursor-pointer"
             aria-label="Previous project"
           >
             <svg
@@ -97,7 +98,7 @@ export default function Projects() {
             onClick={() => navigate(`/project/${project.name}`)}
             className="block w-full min-w-0 text-left group cursor-pointer"
           >
-            <div className="aspect-video overflow-hidden border border-border bg-bg-card mb-6 relative">
+            <div className="aspect-video overflow-hidden border border-border bg-bg-card mb-4 md:mb-6 relative">
               <img
                 src={project.carouselPlaceholder || project.thumbnail}
                 alt={project.name}
@@ -135,9 +136,10 @@ export default function Projects() {
             </p>
           </button>
 
+          {/* Desktop-only side arrow */}
           <button
             onClick={next}
-            className="shrink-0 w-10 h-10 flex items-center justify-center border border-border-hover bg-surface text-text hover:text-accent hover:border-accent transition-colors duration-200 cursor-pointer"
+            className="hidden md:flex shrink-0 w-10 h-10 items-center justify-center border border-border-hover bg-surface text-text hover:text-accent hover:border-accent transition-colors duration-200 cursor-pointer"
             aria-label="Next project"
           >
             <svg
@@ -153,18 +155,54 @@ export default function Projects() {
           </button>
         </div>
 
-        {/* Dot indicators */}
-        <div className="flex items-center justify-center gap-2 mt-6">
-          {featured.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`w-1.5 h-1.5 rounded-full transition-colors duration-200 cursor-pointer ${
-                i === current ? "bg-accent" : "bg-border hover:bg-text-muted"
-              }`}
-              aria-label={`Go to project ${i + 1}`}
-            />
-          ))}
+        {/* Mobile arrows + dot indicators */}
+        <div className="flex items-center justify-center gap-4 mt-6">
+          <button
+            onClick={prev}
+            className="md:hidden shrink-0 w-9 h-9 flex items-center justify-center border border-border-hover bg-surface text-text hover:text-accent hover:border-accent transition-colors duration-200 cursor-pointer"
+            aria-label="Previous project"
+          >
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              <path d="M10 13l-5-5 5-5" />
+            </svg>
+          </button>
+
+          <div className="flex items-center gap-2">
+            {featured.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`w-1.5 h-1.5 rounded-full transition-colors duration-200 cursor-pointer ${
+                  i === current ? "bg-accent" : "bg-border hover:bg-text-muted"
+                }`}
+                aria-label={`Go to project ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={next}
+            className="md:hidden shrink-0 w-9 h-9 flex items-center justify-center border border-border-hover bg-surface text-text hover:text-accent hover:border-accent transition-colors duration-200 cursor-pointer"
+            aria-label="Next project"
+          >
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              <path d="M6 3l5 5-5 5" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>

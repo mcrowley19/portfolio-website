@@ -4,19 +4,19 @@ export default function Contact() {
   const [ref, isInView] = useInView();
 
   return (
-    <section className="px-6 md:px-10 py-5 max-w-6xl mx-auto">
+    <section className="px-6 md:px-10 py-12 md:py-5 max-w-6xl mx-auto">
       <div ref={ref} className={`reveal ${isInView ? "visible" : ""}`}>
-        <p className="text-text-dim text-[10px] tracking-widest uppercase mb-8">
+        <p className="text-text-dim text-[10px] tracking-widest uppercase mb-6 md:mb-8">
           Contact
         </p>
 
         <div className="max-w-xl">
-          <p className="text-text text-lg md:text-xl font-light leading-relaxed mb-10">
+          <p className="text-text text-base md:text-xl font-light leading-relaxed mb-8 md:mb-10">
             Currently in Dublin. Open to meeting interesting people and working
             on new projects.
           </p>
 
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
             <a
               href="https://github.com/mcrowley19"
               target="_blank"

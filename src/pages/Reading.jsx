@@ -172,9 +172,9 @@ function BookEntry({ book }) {
             </a>
           </div>
 
-          <p className="text-text-muted text-sm md:pl-0 pl-9">{book.author}</p>
+          <p className="text-text-muted text-sm">{book.author}</p>
 
-          <div className="flex items-center gap-4 md:pl-0 pl-9">
+          <div className="flex items-center gap-4">
             <span className="text-xs text-text-dim font-mono">{book.year}</span>
           </div>
         </div>
