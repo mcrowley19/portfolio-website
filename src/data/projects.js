@@ -8,7 +8,7 @@ import blackoutThumbnail from "../assets/projects/blackout.png";
 import tempThumbnail from "../assets/projects/temp&h.jpg";
 import snapswingThumbnail from "../assets/projects/snapswing.png";
 import sol450Carousel from "../assets/carousel-placeholders/sol-450.png";
-import metricareCarousel from "../assets/carousel-placeholders/metricare.png";
+import metricareCarousel from "../assets/carousel-placeholders/Metricare.png";
 import shoelaceCarousel from "../assets/carousel-placeholders/shoelace.png";
 
 export const projects = [
