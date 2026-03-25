@@ -5,11 +5,12 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import Reading from './pages/Reading'
 import ProjectDetail from './pages/ProjectDetail'
+import AllProjects from './pages/AllProjects'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }, [pathname])
   return null
 }
@@ -23,6 +24,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/reading" element={<Reading />} />
+          <Route path="/projects" element={<AllProjects />} />
           <Route path="/project/:projectName" element={<ProjectDetail />} />
         </Routes>
       </main>

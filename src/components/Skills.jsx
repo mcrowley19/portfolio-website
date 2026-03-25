@@ -1,28 +1,41 @@
-import { useInView } from '../hooks/useInView'
+import { useInView } from "../hooks/useInView";
 
 const columns = [
   {
-    heading: 'Languages',
-    items: ['Python', 'Java', 'JavaScript', 'TypeScript', 'SQL', 'HTML/CSS'],
+    heading: "Languages",
+    items: ["Python", "Java", "JavaScript", "TypeScript"],
   },
   {
-    heading: 'Frameworks & Tools',
-    items: ['React', 'Node.js', 'Next.js', 'Tailwind', 'Flask', 'Git'],
+    heading: "Frameworks & Libraries",
+    items: [
+      "React",
+      "React Native",
+      "Tailwind",
+      "Flask",
+      "FastAPI",
+      "Pandas",
+      "scikit-learn",
+    ],
   },
   {
-    heading: 'Domains',
-    items: ['Machine Learning', 'Linear Algebra', 'Systems Design', 'Web Development', 'Data Structures', 'Algorithms'],
+    heading: "Tools and infrastructure",
+    items: [
+      "Git",
+      "Vercel",
+      "AWS Amplify",
+      "AWS Agentcore",
+      "Render",
+      "Hugging Face",
+    ],
   },
-]
+];
 
 export default function Skills() {
-  const [ref, isInView] = useInView()
+  const [ref, isInView] = useInView();
 
   return (
     <section className="px-6 md:px-10 py-24 max-w-6xl mx-auto">
-      <div ref={ref} className={`reveal ${isInView ? 'visible' : ''}`}>
-        <p className="text-text-dim text-[10px] tracking-widest uppercase mb-12">Toolkit</p>
-
+      <div ref={ref} className={`reveal ${isInView ? "visible" : ""}`}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
           {columns.map((col) => (
             <div key={col.heading}>
@@ -33,7 +46,7 @@ export default function Skills() {
                 {col.items.map((item) => (
                   <li
                     key={item}
-                    className="text-text text-sm border-b border-border pb-3 hover:text-text-bright hover:pl-2 transition-all duration-300"
+                    className="text-text text-sm border-b border-border pb-3"
                   >
                     {item}
                   </li>
@@ -44,5 +57,5 @@ export default function Skills() {
         </div>
       </div>
     </section>
-  )
+  );
 }

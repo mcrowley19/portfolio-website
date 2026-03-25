@@ -6,7 +6,6 @@ export default function Hero() {
   return (
     <section ref={ref} className="px-6 md:px-10 py-20 max-w-6xl mx-auto">
       <div className={`reveal ${isInView ? "visible" : ""}`}>
-        {/* Portrait */}
         <div className="w-full max-w-60 mx-auto mb-12">
           <div className="aspect-3/4 overflow-hidden">
             <img
@@ -18,7 +17,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Name + details below */}
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <h1 className="text-3xl md:text-5xl font-bold leading-[0.95] tracking-tight text-text-bright mb-3">
