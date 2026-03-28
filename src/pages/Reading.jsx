@@ -147,6 +147,18 @@ const books = [
     year: "1942",
     buyLink: "https://www.amazon.com/s?k=The+Myth+of+Sisyphus+Albert+Camus",
   },
+  {
+    title: "Meditations",
+    author: "Marcus Aurelius",
+    year: "180",
+    buyLink: "https://www.amazon.com/s?k=Meditations+Marcus+Aurelius",
+  },
+  {
+    title: "The Divine Comedy",
+    author: "Dante Alighieri",
+    year: "1320",
+    buyLink: "https://www.amazon.com/s?k=The+Divine+Comedy+Dante+Alighieri",
+  },
 ];
 
 function BookEntry({ book }) {
