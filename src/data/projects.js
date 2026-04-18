@@ -137,17 +137,18 @@ export const projects = [
     name: "Blackout",
     slug: "Blackout",
     description:
-      "A phone-free experience for friends at events. Developed as a startup with friends.",
+      "Phone-free classrooms without the pouch drama. Teachers run sessions from a dashboard, students join on their real device, and compliance is visible without policing the door.",
     long: [
-      "Blackout is a React Native app which allows users to create sessions that lock the apps on users' phones when they scan a QR code. It aims to allow friends and businesses to organise phone-free events. It also features a party chat, allowing attendees at a party to communicate with each other with ease.",
-      "Blackout is currently working on both Android using EOS and iOS using TestFlight with plans for App and Play Store listings in the future. I am a co-founder of the app and worked as a frontend developer during the process.",
+      "Blackout is a React Native app that lets teachers run phone-free classroom sessions from a dashboard. Students join on their actual device, which locks distracting apps for the duration of the session — unlike pouches, there's no way to game it with a burner phone.",
+      "Teachers can see in real time who is in compliance, so there's no need to police the door. Session state is cloud-backed, meaning less time lost at the start of each period.",
+      "I am a co-founder of Blackout and work as a frontend developer. The app is currently available on Android via EOS and on iOS via TestFlight.",
     ],
     tech: ["React Native"],
     thumbnail: blackoutThumbnail,
     imageStyle: "contain",
     imageBg: "#000000",
-    date: "Feb 2026",
-    sortDate: "2026-02-04",
+    date: "Feb 2026 - Present",
+    sortDate: "2026-04-18",
   },
   {
     name: "Temperature and humidity tracker",
