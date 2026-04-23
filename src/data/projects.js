@@ -134,8 +134,8 @@ export const projects = [
       "https://opengraph.githubassets.com/1/mcrowley19/programming-project",
   },
   {
-    name: "Blackout",
-    slug: "Blackout",
+    name: "Lockup",
+    slug: "Lockup",
     description:
       "Phone-free classrooms without the pouch drama. Teachers run sessions from a dashboard, students join on their real device, and compliance is visible without policing the door.",
     long: [
