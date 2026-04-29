@@ -4,7 +4,7 @@ import shoelaceThumbnail from "../assets/projects/shoelace.png";
 import linearOps from "../assets/projects/linear-ops.png";
 import microgradJava from "../assets/projects/micrograd-java.png";
 import learnquotesThumbnail from "../assets/projects/learnquotes.png";
-import blackoutThumbnail from "../assets/projects/blackout.png";
+import lockupThumbnail from "../assets/projects/blackout.png";
 import tempThumbnail from "../assets/projects/temp&h.jpg";
 import snapswingThumbnail from "../assets/projects/snapswing.png";
 import kangratThumbnail from "../assets/projects/kangrat.png";
@@ -139,12 +139,12 @@ export const projects = [
     description:
       "Phone-free classrooms without the pouch drama. Teachers run sessions from a dashboard, students join on their real device, and compliance is visible without policing the door.",
     long: [
-      "Blackout is a React Native app that lets teachers run phone-free classroom sessions from a dashboard. Students join on their actual device, which locks distracting apps for the duration of the session — unlike pouches, there's no way to game it with a burner phone.",
+      "Lockup is a React Native app that lets teachers run phone-free classroom sessions from a dashboard. Students join on their actual device, which locks distracting apps for the duration of the session — unlike pouches, there's no way to game it with a burner phone.",
       "Teachers can see in real time who is in compliance, so there's no need to police the door. Session state is cloud-backed, meaning less time lost at the start of each period.",
-      "I am a co-founder of Blackout and work as a frontend developer. The app is currently available on Android via EOS and on iOS via TestFlight.",
+      "I am a co-founder of Lockup and work as a frontend developer. The app is currently available on Android via EOS and on iOS via TestFlight.",
     ],
     tech: ["React Native"],
-    thumbnail: blackoutThumbnail,
+    thumbnail: lockupThumbnail,
     imageStyle: "contain",
     imageBg: "#000000",
     date: "Feb 2026 - Present",
