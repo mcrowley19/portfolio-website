@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 const paragraphs: ReactNode[] = [
-  "I am study CS at Trinity College Dublin. Alongside this, I am the CTO of Lockup, an app I co-founded to provide schools across Ireland with a way to easily regulate phone usage.",
+  "I study CS at Trinity College Dublin. Alongside this, I am the CTO of Lockup, an app I co-founded to provide schools across Ireland with a way to easily regulate phone usage.",
   "Most of what I do outside coursework ends up on the Projects page above. My biggest interest at the moment is in large language models and I am in the midst of catching up on relevant research papers. I am also very passionate about helping students from rural Ireland succeed inside the tech industry.",
   <>
     Right now, I am building Lockup at{" "}
