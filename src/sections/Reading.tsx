@@ -17,13 +17,22 @@ const reading: Entry[] = [
   { title: "Meditations", note: "Marcus Aurelius. c. 180." },
   { title: "Man's Search for Meaning", note: "Viktor Frankl. 1946." },
   { title: "Source Code", note: "Bill Gates. 2025." },
-  { title: "Artificial Intelligence: A Modern Approach", note: "Stuart Russell & Peter Norvig. 2020." },
+  {
+    title: "Artificial Intelligence: A Modern Approach",
+    note: "Stuart Russell & Peter Norvig. 2020.",
+  },
   { title: "Wuthering Heights", note: "Emily Brontë. 1847." },
   { title: "The Idiot", note: "Fyodor Dostoevsky. 1869." },
-  { title: "Introduction to Machine Learning with Python", note: "Andreas C. Müller & Sarah Guido. 2016." },
+  {
+    title: "Introduction to Machine Learning with Python",
+    note: "Andreas C. Müller & Sarah Guido. 2016.",
+  },
   { title: "The Death of Ivan Ilyich", note: "Leo Tolstoy. 1886." },
   { title: "Jane Eyre", note: "Charlotte Brontë. 1847." },
-  { title: "Discrete Mathematics and Its Applications", note: "Kenneth H. Rosen. 1988." },
+  {
+    title: "Discrete Mathematics and Its Applications",
+    note: "Kenneth H. Rosen. 1988.",
+  },
   { title: "Nausea", note: "Jean-Paul Sartre. 1938." },
   { title: "For Whom the Bell Tolls", note: "Ernest Hemingway. 1940." },
   { title: "The Plague", note: "Albert Camus. 1947." },
@@ -38,9 +47,25 @@ const reading: Entry[] = [
 export function Reading() {
   return (
     <Section id="reading" numeral="III." kicker="Reading" className="relative">
+      {/* Mobile-only: Newton scene sits between the kicker and the list,
+          acting as a header image rather than a footer afterthought. */}
+      <aside aria-hidden="true" className="mb-10 flex justify-center lg:hidden">
+        <NewtonScene />
+      </aside>
       {/* On desktop, reserve right-side space (scene width + gap) so the
           absolutely-positioned scene never overlaps the list. */}
       <div className="lg:pr-[300px]">
+        <p className="mb-5 font-mono text-kicker text-ink-secondary">
+          A list of books I recommend. Inspired by{" "}
+          <a
+            href="https://patrickcollison.com/bookshelf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline decoration-1 underline-offset-4 hover:text-accent-vermilion"
+          >
+            patrick collison
+          </a>
+        </p>
         <dl className="max-w-[65ch] divide-y divide-rule-line border-y border-rule-line">
           {reading.map((entry) => (
             <div
@@ -57,11 +82,13 @@ export function Reading() {
           ))}
         </dl>
       </div>
-      {/* Stationary in layout (absolute, not fixed) so it doesn't move on
-          scroll, but is positioned independently of the list flow. */}
+      {/* Desktop: stationary scene in layout (absolute, not fixed) so it
+          doesn't move on scroll, positioned independently of the list flow.
+          On mobile this slot is hidden — the scene appears at the top of the
+          section instead. */}
       <aside
         aria-hidden="true"
-        className="mt-12 flex justify-center lg:absolute lg:right-[calc(50%-50vw)] lg:top-32 lg:mt-0 lg:block"
+        className="hidden lg:absolute lg:right-[calc(50%-50vw)] lg:top-32 lg:block"
       >
         <NewtonScene />
       </aside>

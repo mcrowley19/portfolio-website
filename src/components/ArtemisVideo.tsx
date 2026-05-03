@@ -23,7 +23,7 @@ export function ArtemisVideo({ width, maxHeight }: ArtemisVideoProps = {}) {
           }
         }
       },
-      { threshold: 0.25 },
+      { threshold: 0.5 },
     )
 
     observer.observe(video)

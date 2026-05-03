@@ -26,14 +26,17 @@ export function Contact() {
     <Section id="contact" numeral="V." kicker="Contact">
       <ul className="space-y-3 font-mono text-numeral text-ink-primary">
         {lines.map((line) => (
-          <li key={line.label} className="flex items-baseline gap-6">
-            <span className="w-24 text-ink-tertiary">{line.label}</span>
-            <span className="text-ink-tertiary">—</span>
+          <li
+            key={line.label}
+            className="flex flex-wrap items-baseline gap-x-4 gap-y-1 sm:gap-x-6"
+          >
+            <span className="w-20 text-ink-tertiary sm:w-24">{line.label}</span>
+            <span className="hidden text-ink-tertiary sm:inline">—</span>
             <a
               href={line.href}
               target={line.isEmail ? undefined : '_blank'}
               rel={line.isEmail ? undefined : 'noreferrer'}
-              className="underline decoration-ink-tertiary underline-offset-4 transition-colors hover:text-accent-vermilion hover:decoration-accent-vermilion"
+              className="break-all underline decoration-ink-tertiary underline-offset-4 transition-colors hover:text-accent-vermilion hover:decoration-accent-vermilion"
             >
               {line.value}
             </a>
