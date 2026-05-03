@@ -49,7 +49,10 @@ export function Reading() {
     <Section id="reading" numeral="III." kicker="Reading" className="relative">
       {/* Mobile-only: Newton scene sits between the kicker and the list,
           acting as a header image rather than a footer afterthought. */}
-      <aside aria-hidden="true" className="mb-10 flex justify-center lg:hidden">
+      <aside
+        aria-hidden="true"
+        className="mb-10 flex justify-end mr-[calc(50%-50vw)] lg:hidden"
+      >
         <NewtonScene />
       </aside>
       {/* On desktop, reserve right-side space (scene width + gap) so the
