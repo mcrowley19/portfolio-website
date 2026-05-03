@@ -2,8 +2,8 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full"
-      style={{ paddingTop: "8vh", paddingLeft: "12vw", paddingRight: "1.5rem" }}
+      className="relative w-full home-hero"
+      style={{ paddingTop: "8vh" }}
     >
       <div style={{ maxWidth: "580px" }}>
         <h1

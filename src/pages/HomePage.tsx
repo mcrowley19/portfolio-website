@@ -9,38 +9,31 @@ export function HomePage() {
     <>
       <Hero />
 
-      <main
-        className="w-full pb-24"
-        style={{ paddingLeft: "12vw", paddingRight: "1.5rem" }}
-      >
+      <main className="home-main w-full pb-24">
         {/* Portrait — first image, sits below the name, left-aligned to the
             same edge as the prose. */}
         <img
           src={heroPhoto}
-          className="pointer-events-none"
-          style={{
-            display: "block",
-            width: "240px",
-            maxWidth: "240px",
-            height: "auto",
-            marginTop: "3rem",
-            marginBottom: "2.5rem",
-          }}
+          className="pointer-events-none home-portrait"
           alt=""
           aria-hidden
         />
 
-        {/* Mobile: name → portrait → first two paragraphs → rocket → remaining
-            paragraphs → contact. The rocket appears inline after the second
-            paragraph, full mobile width.
-            Desktop (lg+): prose in main column, rocket in a right-hand column
-            aligned to the top of the prose. */}
+        {/* Mobile (<lg): first paragraph runs the full prose width, then the
+            remaining paragraphs share a row with the rocket on the right.
+            Mirrors the desktop relationship — rocket anchored in the same
+            horizontal sweep as the prose, top-aligned with the second
+            paragraph — at smaller scale. */}
         <div className="lg:hidden">
-          <About range={[0, 2]} />
-          <div style={{ marginTop: "2.5rem", marginBottom: "2.5rem", maxWidth: "420px" }}>
-            <ArtemisVideo width="100%" />
+          <About range={[0, 1]} />
+          <div className="home-prose-row">
+            <div className="home-prose-col">
+              <About range={[1, 4]} marginTopOnFirst />
+            </div>
+            <div className="home-rocket-col">
+              <ArtemisVideo width="100%" />
+            </div>
           </div>
-          <About range={[2, 4]} marginTopOnFirst />
         </div>
 
         <div className="hidden lg:flex lg:items-start lg:gap-32">
@@ -52,7 +45,7 @@ export function HomePage() {
           </div>
         </div>
 
-        <div style={{ maxWidth: "580px", marginTop: "5rem" }}>
+        <div className="home-contact">
           <Contact />
         </div>
       </main>

@@ -73,3 +73,99 @@ html, body {
     color: var(--color-paper);
   }
 }
+
+.home-hero,
+.home-main {
+  padding-left: 12vw;
+  padding-right: 1.5rem;
+}
+
+.home-portrait {
+  display: block;
+  width: 240px;
+  max-width: 240px;
+  height: auto;
+  margin-top: 3rem;
+  margin-bottom: 2.5rem;
+}
+
+.home-contact {
+  max-width: 580px;
+  margin-top: 5rem;
+}
+
+@media (max-width: 1023px) {
+  .home-hero,
+  .home-main {
+    padding-left: 1.5rem;
+    padding-right: 1rem;
+  }
+
+  .home-portrait {
+    width: 180px;
+    max-width: 180px;
+  }
+
+  .home-prose-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 95px;
+    column-gap: 1rem;
+    align-items: start;
+  }
+
+  .home-prose-col {
+    min-width: 0;
+  }
+
+  .home-rocket-col {
+    min-width: 0;
+    margin-top: 1.5rem;
+  }
+
+  .lg\:hidden p {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .contact-line {
+    font-size: 0.75rem;
+  }
+
+  .contact-label {
+    width: 3.5rem;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 1023px) {
+  .contact-line {
+    font-size: 0.8125rem;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 1023px) {
+  .home-prose-row {
+    grid-template-columns: minmax(0, 1fr) 110px;
+    column-gap: 1.25rem;
+  }
+
+  .lg\:hidden p {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .home-hero,
+  .home-main {
+    padding-left: 6vw;
+    padding-right: 1.5rem;
+  }
+
+  .home-prose-row {
+    grid-template-columns: minmax(0, 1fr) 130px;
+    column-gap: 1.5rem;
+  }
+
+  .lg\:hidden p {
+    font-size: 1.0625rem;
+  }
+}

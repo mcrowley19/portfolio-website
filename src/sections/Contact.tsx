@@ -28,15 +28,17 @@ export function Contact() {
         {lines.map((line) => (
           <li
             key={line.label}
-            className="flex flex-wrap items-baseline gap-x-4 gap-y-1 sm:gap-x-6"
+            className="contact-line flex items-baseline gap-x-3 sm:gap-x-6"
           >
-            <span className="w-20 text-ink-tertiary sm:w-24">{line.label}</span>
+            <span className="contact-label w-16 shrink-0 text-ink-tertiary sm:w-24">
+              {line.label}
+            </span>
             <span className="hidden text-ink-tertiary sm:inline">—</span>
             <a
               href={line.href}
               target={line.isEmail ? undefined : '_blank'}
               rel={line.isEmail ? undefined : 'noreferrer'}
-              className="break-all underline decoration-ink-tertiary underline-offset-4 transition-colors hover:text-accent-vermilion hover:decoration-accent-vermilion"
+              className="contact-value min-w-0 whitespace-nowrap underline decoration-ink-tertiary underline-offset-4 transition-colors hover:text-accent-vermilion hover:decoration-accent-vermilion"
             >
               {line.value}
             </a>
