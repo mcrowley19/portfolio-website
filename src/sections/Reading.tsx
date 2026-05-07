@@ -7,6 +7,8 @@ type Entry = { title: string; note: string };
 // author / year only — the one-line `<dd>` is set as "Author. Year." until
 // proper notes are written.
 const reading: Entry[] = [
+  { title: "The Picture of Dorian Gray", note: "Oscar Wilde. 1890." },
+
   { title: "Thus Spoke Zarathustra", note: "Friedrich Nietzsche. 1885." },
   { title: "The Brothers Karamazov", note: "Fyodor Dostoevsky. 1880." },
   { title: "War and Peace", note: "Leo Tolstoy. 1869." },
