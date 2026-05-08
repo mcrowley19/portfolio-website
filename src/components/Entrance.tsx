@@ -9,36 +9,56 @@ import deepBlueImage from '../assets/deepblue.jpg'
 // keeps the documentary register the entrance is built around. Lower-res
 // alternatives on Commons washed out at the entrance scale.
 import hamiltonImage from '../assets/hamilton.jpg'
+import { usePrefersReducedMotion } from '../lib/useReducedMotion'
 
 const SESSION_KEY = 'hasVisited'
 
-// Flicker timing: each image holds for ~600ms. Frames are stacked in the DOM
-// (all preloaded, opacity-toggled) so swaps are GPU-cheap and don't repaint
-// a single <img> tag — that's what was causing the jarring stutter before.
-// A short blank between frames keeps the "cut" feel without a hard repaint.
-const HOLD_MS = 1100
-// Crossfade between frames. Both layers are stacked and only opacity
-// transitions, so the swap is GPU-cheap. ~280ms feels deliberate without
-// drifting into slideshow territory.
-const CROSSFADE_MS = 280
-// Disintegration: blur 0→12px, opacity 1→0, scale 1→1.02. The image stays
-// anchored — only filter and a tiny scale change run. 1200ms with a soft
-// cubic-out feels like dispersal without dragging.
-const DISINTEGRATE_MS = 1200
-const DISINTEGRATE_EASE = 'cubic-bezier(0.4, 0, 0.2, 1)'
+const HOLD_MS = 1500
+const CROSSFADE_MS = 320
+// Quick white-flash + chromatic kick at the cut between frames. Sits inside
+// the crossfade window so the next frame "snaps" into existence.
+const FLASH_MS = 220
+const DISINTEGRATE_MS = 1300
+const DISINTEGRATE_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)'
 
-const FLICKER_FRAMES = [
-  { src: trinityImage, filter: 'grayscale(100%) contrast(1.3) brightness(0.85)' },
-  // Deep Blue retains its original colour treatment — no filter applied.
-  { src: deepBlueImage, filter: 'none' },
+type Frame = {
+  src: string
+  filter: string
+  // Ken Burns start/end transforms. The image holds at `from` for ~80ms,
+  // then runs to `to` over the remaining hold + crossfade duration.
+  from: string
+  to: string
+  caption: string
+  year: string
+}
+
+const FLICKER_FRAMES: readonly Frame[] = [
+  {
+    src: trinityImage,
+    filter: 'grayscale(100%) contrast(1.3) brightness(0.85)',
+    from: 'scale(1.08) translate3d(-1.5%, 1%, 0)',
+    to: 'scale(1.18) translate3d(2%, -1.5%, 0)',
+    caption: 'Trinity College · Dublin',
+    year: '1592',
+  },
+  {
+    src: deepBlueImage,
+    filter: 'none',
+    from: 'scale(1.10) translate3d(2%, -1%, 0)',
+    to: 'scale(1.20) translate3d(-2%, 1.5%, 0)',
+    caption: 'Deep Blue vs Kasparov',
+    year: '1997',
+  },
   {
     src: hamiltonImage,
-    filter:
-      'grayscale(1) contrast(1.75) brightness(1.1) sepia(0.15)',
+    filter: 'grayscale(1) contrast(1.75) brightness(1.1) sepia(0.15)',
+    from: 'scale(1.08) translate3d(0%, 1.5%, 0)',
+    to: 'scale(1.20) translate3d(-1.5%, -1.5%, 0)',
+    caption: 'Broom Bridge · Dublin',
+    year: '1843',
   },
 ] as const
 
-// Frames overlap during the crossfade rather than being separated by a blank.
 const FLICKER_TOTAL_MS =
   FLICKER_FRAMES.length * HOLD_MS + (FLICKER_FRAMES.length - 1) * CROSSFADE_MS
 
@@ -83,10 +103,11 @@ function readInitialMode(): EntranceMode {
 type Phase = 'loading' | 'flicker' | 'disintegrate' | 'done'
 
 export function EntranceProvider({ children }: { children: ReactNode }) {
+  const reducedMotion = usePrefersReducedMotion()
   const [mode, setMode] = useState<EntranceMode>(readInitialMode)
   const [phase, setPhase] = useState<Phase>(mode === 'first-visit' ? 'loading' : 'done')
-  // -1 = blank (between cuts), 0..N = which preloaded frame is on top.
   const [activeIndex, setActiveIndex] = useState(0)
+  const [flashing, setFlashing] = useState(false)
 
   useEffect(() => {
     if (mode !== 'first-visit') return
@@ -97,8 +118,6 @@ export function EntranceProvider({ children }: { children: ReactNode }) {
     }
   }, [mode])
 
-  // Preload every flicker frame so all <img> elements have decoded pixels
-  // before they're shown. Once preloaded, kick off the flicker.
   useEffect(() => {
     if (mode !== 'first-visit') return
     let cancelled = false
@@ -130,32 +149,31 @@ export function EntranceProvider({ children }: { children: ReactNode }) {
     }
   }, [mode])
 
-  // Run the flicker sequence. Schedule everything up front so the effect
-  // doesn't depend on state it changes (which previously caused re-runs that
-  // cleared the disintegrate→done timer and left the overlay mounted forever).
   useEffect(() => {
     if (phase !== 'flicker') return
     const timers: ReturnType<typeof setTimeout>[] = []
     setActiveIndex(0)
 
-    // After the first hold, advance to each next frame. The image layer
-    // crossfades via its own CSS transition (CROSSFADE_MS), so we don't
-    // insert a blank — the previous frame fades out as the next fades in.
     let elapsed = HOLD_MS
     for (let i = 1; i < FLICKER_FRAMES.length; i++) {
       const idx = i
+      // Trigger the flash a hair before the active index changes so the white
+      // hit lands on the cut, not after it.
+      const flashAt = elapsed - FLASH_MS / 2
+      timers.push(
+        setTimeout(() => {
+          setFlashing(true)
+          setTimeout(() => setFlashing(false), FLASH_MS)
+        }, Math.max(0, flashAt)),
+      )
       timers.push(setTimeout(() => setActiveIndex(idx), elapsed))
       elapsed += CROSSFADE_MS + HOLD_MS
     }
     timers.push(setTimeout(() => setPhase('disintegrate'), elapsed))
     return () => timers.forEach(clearTimeout)
-    // Intentionally empty deps after the phase guard — we only want this to
-    // run once when entering 'flicker'.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase])
 
-  // Separate effect so the disintegrate→done timer is owned by the
-  // disintegrate phase and isn't torn down when the flicker effect cleans up.
   useEffect(() => {
     if (phase !== 'disintegrate') return
     const t = setTimeout(() => setPhase('done'), DISINTEGRATE_MS)
@@ -179,22 +197,32 @@ export function EntranceProvider({ children }: { children: ReactNode }) {
         <ArchivalOverlay
           activeIndex={activeIndex}
           disintegrating={phase === 'disintegrate'}
+          flashing={flashing}
+          reducedMotion={reducedMotion}
         />
       ) : null}
     </EntranceContext.Provider>
   )
 }
 
+const FRAME_HOLD_TOTAL_MS = HOLD_MS + CROSSFADE_MS
+
 function ArchivalOverlay({
   activeIndex,
   disintegrating,
+  flashing,
+  reducedMotion,
 }: {
   activeIndex: number
   disintegrating: boolean
+  flashing: boolean
+  reducedMotion: boolean
 }) {
-  // All frames stacked. Only opacity toggles between them — no <img> src
-  // swap, no layout work, no repaint of a single shared element. The whole
-  // stack disintegrates together when `disintegrating` flips.
+  const frame = FLICKER_FRAMES[activeIndex]
+  const counter = `${String(activeIndex + 1).padStart(2, '0')} / ${String(
+    FLICKER_FRAMES.length,
+  ).padStart(2, '0')}`
+
   return (
     <div
       style={{
@@ -202,37 +230,234 @@ function ArchivalOverlay({
         inset: 0,
         zIndex: 50,
         pointerEvents: 'none',
-        backgroundColor: '#F4EFE6',
+        backgroundColor: '#0E0C09',
         overflow: 'hidden',
         opacity: disintegrating ? 0 : 1,
-        transform: disintegrating ? 'scale(1.02)' : 'scale(1)',
+        transform: disintegrating ? 'scale(1.04)' : 'scale(1)',
         transition: disintegrating
           ? `opacity ${DISINTEGRATE_MS}ms ${DISINTEGRATE_EASE}, transform ${DISINTEGRATE_MS}ms ${DISINTEGRATE_EASE}, filter ${DISINTEGRATE_MS}ms ${DISINTEGRATE_EASE}`
           : 'none',
-        filter: disintegrating ? 'blur(12px)' : 'blur(0px)',
+        filter: disintegrating ? 'blur(14px)' : 'blur(0px)',
         willChange: 'opacity, transform, filter',
       }}
     >
-      {FLICKER_FRAMES.map((frame, i) => (
-        <img
-          key={i}
-          src={frame.src}
-          alt=""
-          aria-hidden="true"
+      <style>{`
+        @keyframes entrance-kenburns-0 {
+          from { transform: ${FLICKER_FRAMES[0].from}; }
+          to { transform: ${FLICKER_FRAMES[0].to}; }
+        }
+        @keyframes entrance-kenburns-1 {
+          from { transform: ${FLICKER_FRAMES[1].from}; }
+          to { transform: ${FLICKER_FRAMES[1].to}; }
+        }
+        @keyframes entrance-kenburns-2 {
+          from { transform: ${FLICKER_FRAMES[2].from}; }
+          to { transform: ${FLICKER_FRAMES[2].to}; }
+        }
+        @keyframes entrance-grain {
+          0%   { transform: translate3d(0, 0, 0); }
+          20%  { transform: translate3d(-3%, 2%, 0); }
+          40%  { transform: translate3d(2%, -3%, 0); }
+          60%  { transform: translate3d(-2%, -1%, 0); }
+          80%  { transform: translate3d(3%, 2%, 0); }
+          100% { transform: translate3d(0, 0, 0); }
+        }
+        @keyframes entrance-caption-in {
+          from { opacity: 0; transform: translateY(8px); letter-spacing: 0.4em; }
+          to   { opacity: 1; transform: translateY(0);   letter-spacing: 0.18em; }
+        }
+        @keyframes entrance-year-in {
+          from { opacity: 0; transform: translateY(-6px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes entrance-rule {
+          from { transform: scaleX(0); }
+          to   { transform: scaleX(1); }
+        }
+      `}</style>
+
+      {FLICKER_FRAMES.map((f, i) => {
+        const isActive = i === activeIndex
+        const kenBurnsDuration = FRAME_HOLD_TOTAL_MS + 200
+        return (
+          <div
+            key={i}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              opacity: isActive ? 1 : 0,
+              transition: `opacity ${CROSSFADE_MS}ms ease-in-out`,
+              willChange: 'opacity',
+            }}
+          >
+            <img
+              src={f.src}
+              alt=""
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center',
+                display: 'block',
+                filter: f.filter === 'none' ? undefined : f.filter,
+                transform: reducedMotion ? 'scale(1.05)' : f.from,
+                animation:
+                  isActive && !reducedMotion
+                    ? `entrance-kenburns-${i} ${kenBurnsDuration}ms cubic-bezier(0.22, 1, 0.36, 1) forwards`
+                    : 'none',
+                willChange: 'transform',
+              }}
+            />
+          </div>
+        )
+      })}
+
+      {/* Vignette + soft scanline overlay */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
+          background:
+            'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.55) 100%)',
+          mixBlendMode: 'multiply',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
+          backgroundImage:
+            'repeating-linear-gradient(to bottom, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px)',
+          mixBlendMode: 'overlay',
+          opacity: 0.35,
+        }}
+      />
+
+      {/* Film grain — SVG noise tiled across the screen, gently drifting */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: '-10%',
+          pointerEvents: 'none',
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.65 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+          backgroundSize: '240px 240px',
+          opacity: 0.22,
+          mixBlendMode: 'overlay',
+          animation: reducedMotion ? 'none' : 'entrance-grain 1.4s steps(6) infinite',
+        }}
+      />
+
+      {/* Top frame counter + timestamp */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: 'clamp(0.875rem, 3vw, 1.75rem)',
+          left: 'clamp(0.875rem, 3vw, 1.75rem)',
+          right: 'clamp(0.875rem, 3vw, 1.75rem)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          color: 'rgba(244, 239, 230, 0.75)',
+          fontFamily: 'var(--font-mono)',
+          fontSize: 'clamp(0.625rem, 1.6vw, 0.75rem)',
+          letterSpacing: '0.18em',
+          textTransform: 'uppercase',
+          textShadow: '0 1px 2px rgba(0,0,0,0.6)',
+        }}
+      >
+        <span>REC · ARCHIVE</span>
+        <span>{counter}</span>
+      </div>
+
+      {/* Caption — location + year, reanimates per frame via key */}
+      <div
+        key={`caption-${activeIndex}`}
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          left: 'clamp(0.875rem, 4vw, 2.25rem)',
+          right: 'clamp(0.875rem, 4vw, 2.25rem)',
+          bottom: 'clamp(1.25rem, 5vw, 2.5rem)',
+          color: '#F4EFE6',
+          textShadow: '0 1px 4px rgba(0,0,0,0.7)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.55rem',
+          maxWidth: '32rem',
+        }}
+      >
+        <div
           style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center',
-            display: 'block',
-            opacity: i === activeIndex ? 1 : 0,
-            filter: frame.filter === 'none' ? undefined : frame.filter,
-            transition: `opacity ${CROSSFADE_MS}ms ease-in-out`,
+            height: '1px',
+            background: 'rgba(244, 239, 230, 0.7)',
+            transformOrigin: 'left',
+            animation: reducedMotion
+              ? 'none'
+              : `entrance-rule 700ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both`,
           }}
         />
-      ))}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            justifyContent: 'space-between',
+            gap: '1rem',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(0.875rem, 2.6vw, 1.1rem)',
+              fontWeight: 400,
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              animation: reducedMotion
+                ? 'none'
+                : 'entrance-caption-in 800ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both',
+            }}
+          >
+            {frame.caption}
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 'clamp(0.75rem, 2vw, 0.9375rem)',
+              letterSpacing: '0.1em',
+              color: 'rgba(244, 239, 230, 0.85)',
+              animation: reducedMotion
+                ? 'none'
+                : 'entrance-year-in 600ms cubic-bezier(0.22, 1, 0.36, 1) 380ms both',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            EST. {frame.year}
+          </span>
+        </div>
+      </div>
+
+      {/* Flash hit at cuts — quick white burst riding inside the crossfade */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
+          backgroundColor: '#F4EFE6',
+          opacity: flashing && !reducedMotion ? 0.55 : 0,
+          transition: `opacity ${FLASH_MS}ms ease-out`,
+          mixBlendMode: 'screen',
+        }}
+      />
     </div>
   )
 }
