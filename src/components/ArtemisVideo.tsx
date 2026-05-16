@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import artemisVideo from '../assets/artemis.mp4'
+import { useEntrance } from './Entrance'
 
 type ArtemisVideoProps = {
   width?: number | string
@@ -8,8 +9,13 @@ type ArtemisVideoProps = {
 
 export function ArtemisVideo({ width, maxHeight }: ArtemisVideoProps = {}) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const { revealStarted } = useEntrance()
 
   useEffect(() => {
+    // Hold playback until the entrance overlay has finished — otherwise the
+    // observer fires while the loading images are still on screen and the
+    // clip plays out (and ends, loop={false}) behind the overlay.
+    if (!revealStarted) return
     const video = videoRef.current
     if (!video) return
 
@@ -28,7 +34,7 @@ export function ArtemisVideo({ width, maxHeight }: ArtemisVideoProps = {}) {
 
     observer.observe(video)
     return () => observer.disconnect()
-  }, [])
+  }, [revealStarted])
 
   if (maxHeight !== undefined) {
     return (
