@@ -8,7 +8,7 @@ import deepBlueImage from '../assets/deepblue.jpg'
 // Trinity engraving once colour-graded (grayscale + raised contrast), and
 // keeps the documentary register the entrance is built around. Lower-res
 // alternatives on Commons washed out at the entrance scale.
-import hamiltonImage from '../assets/hamilton.jpg'
+import hamiltonImage from '../assets/webp/hamilton.webp'
 import { usePrefersReducedMotion } from '../lib/useReducedMotion'
 
 const SESSION_KEY = 'hasVisited'
@@ -294,6 +294,8 @@ function ArchivalOverlay({
               src={f.src}
               alt=""
               aria-hidden="true"
+              fetchPriority="high"
+              decoding="async"
               style={{
                 position: 'absolute',
                 inset: 0,

@@ -17,6 +17,8 @@ export function HomePage() {
           className="pointer-events-none home-portrait"
           alt=""
           aria-hidden
+          fetchPriority="high"
+          decoding="async"
         />
 
         {/* Mobile (<lg): first paragraph runs the full prose width, then the

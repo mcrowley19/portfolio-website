@@ -1,14 +1,14 @@
 import { useState } from 'react'
-import lockupImg from '../assets/projects/lockup.png'
-import sol450Img from '../assets/projects/sol-450.png'
-import shoelaceImg from '../assets/projects/shoelace(1).png'
-import metricareImg from '../assets/projects/metricare.png'
-import kangratImg from '../assets/projects/kangrat.png'
-import micrograJavaImg from '../assets/projects/micrograd-java.png'
-import snapswingImg from '../assets/projects/snapswing.png'
-import linearOpsImg from '../assets/projects/linear-ops.png'
-import learnquotesImg from '../assets/projects/learnquotes.png'
-import tempHumidityImg from '../assets/projects/temp&h.jpg'
+import lockupImg from '../assets/webp/projects/lockup.webp'
+import sol450Img from '../assets/webp/projects/sol-450.webp'
+import shoelaceImg from '../assets/webp/projects/shoelace.webp'
+import metricareImg from '../assets/webp/projects/metricare.webp'
+import kangratImg from '../assets/webp/projects/kangrat.webp'
+import micrograJavaImg from '../assets/webp/projects/micrograd-java.webp'
+import snapswingImg from '../assets/webp/projects/snapswing.webp'
+import linearOpsImg from '../assets/webp/projects/linear-ops.webp'
+import learnquotesImg from '../assets/webp/projects/learnquotes.webp'
+import tempHumidityImg from '../assets/webp/projects/temp-h.webp'
 
 type Row = {
   name: string
@@ -146,6 +146,8 @@ function ProjectImage({ src, filter = 'grayscale(1)', objectFit = 'cover', objec
     <img
       src={src}
       alt=""
+      loading="lazy"
+      decoding="async"
       onError={() => setFailed(true)}
       style={{
         width: '140px',

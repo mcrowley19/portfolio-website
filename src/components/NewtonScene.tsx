@@ -1,4 +1,4 @@
-import sceneUrl from "../assets/scene.png";
+import sceneUrl from "../assets/webp/scene.webp";
 import appleUrl from "../assets/apple-cropped.png";
 
 export function NewtonScene() {
