@@ -128,37 +128,45 @@ const RULE = '1px solid rgba(26, 26, 26, 0.12)'
 
 function ProjectImage({ src, filter = 'grayscale(1)', objectFit = 'cover', objectPosition = 'center' }: { src?: string; filter?: string; objectFit?: 'cover' | 'contain'; objectPosition?: string }) {
   const [failed, setFailed] = useState(false)
-  const showPlaceholder = !src || failed
-  if (showPlaceholder) {
+  const [loaded, setLoaded] = useState(false)
+
+  if (!src || failed) {
     return (
       <div
         aria-hidden
-        style={{
-          width: '140px',
-          height: '90px',
-          backgroundColor: '#8A8682',
-          flex: '0 0 140px',
-        }}
+        style={{ width: '140px', height: '90px', backgroundColor: '#8A8682', flex: '0 0 140px' }}
       />
     )
   }
+
   return (
-    <img
-      src={src}
-      alt=""
-      loading="lazy"
-      decoding="async"
-      onError={() => setFailed(true)}
-      style={{
-        width: '140px',
-        height: '90px',
-        objectFit,
-        objectPosition,
-        filter,
-        flex: '0 0 140px',
-        display: 'block',
-      }}
-    />
+    <div
+      aria-hidden
+      style={{ width: '140px', height: '90px', flex: '0 0 140px', position: 'relative', backgroundColor: '#8A8682' }}
+    >
+      {!loaded && (
+        <div className="proj-img-spinner-wrap">
+          <div className="proj-img-spinner" />
+        </div>
+      )}
+      <img
+        src={src}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setLoaded(true)}
+        onError={() => setFailed(true)}
+        style={{
+          width: '140px',
+          height: '90px',
+          objectFit,
+          objectPosition,
+          filter,
+          display: 'block',
+          opacity: loaded ? 1 : 0,
+        }}
+      />
+    </div>
   )
 }
 
@@ -286,6 +294,24 @@ export function ProjectsPage() {
           .project-row > div:last-child {
             width: 100%;
           }
+        }
+        .proj-img-spinner-wrap {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .proj-img-spinner {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          border: 2px solid rgba(26, 26, 26, 0.15);
+          border-top-color: rgba(26, 26, 26, 0.5);
+          animation: proj-img-spin 0.75s linear infinite;
+        }
+        @keyframes proj-img-spin {
+          to { transform: rotate(360deg); }
         }
       `}</style>
     </main>
