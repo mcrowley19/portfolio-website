@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import lockupImg from '../assets/webp/projects/lockup.webp'
 import sol450Img from '../assets/webp/projects/sol-450.webp'
 import shoelaceImg from '../assets/webp/projects/shoelace.webp'
@@ -124,12 +124,12 @@ const rows: Row[] = [
   },
 ]
 
+const ALL_IMAGES = rows.map((r) => r.image).filter(Boolean) as string[]
+
 const RULE = '1px solid rgba(26, 26, 26, 0.12)'
 
 function ProjectImage({ src, filter = 'grayscale(1)', objectFit = 'cover', objectPosition = 'center' }: { src?: string; filter?: string; objectFit?: 'cover' | 'contain'; objectPosition?: string }) {
   const [failed, setFailed] = useState(false)
-  const [loaded, setLoaded] = useState(false)
-
   if (!src || failed) {
     return (
       <div
@@ -138,39 +138,66 @@ function ProjectImage({ src, filter = 'grayscale(1)', objectFit = 'cover', objec
       />
     )
   }
-
   return (
-    <div
-      aria-hidden
-      style={{ width: '140px', height: '90px', flex: '0 0 140px', position: 'relative', backgroundColor: '#8A8682' }}
-    >
-      {!loaded && (
-        <div className="proj-img-spinner-wrap">
-          <div className="proj-img-spinner" />
-        </div>
-      )}
-      <img
-        src={src}
-        alt=""
-        loading="lazy"
-        decoding="async"
-        onLoad={() => setLoaded(true)}
-        onError={() => setFailed(true)}
-        style={{
-          width: '140px',
-          height: '90px',
-          objectFit,
-          objectPosition,
-          filter,
-          display: 'block',
-          opacity: loaded ? 1 : 0,
-        }}
-      />
-    </div>
+    <img
+      src={src}
+      alt=""
+      decoding="async"
+      onError={() => setFailed(true)}
+      style={{
+        width: '140px',
+        height: '90px',
+        objectFit,
+        objectPosition,
+        filter,
+        flex: '0 0 140px',
+        display: 'block',
+      }}
+    />
   )
 }
 
 export function ProjectsPage() {
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    let settled = 0
+    const total = ALL_IMAGES.length
+    if (total === 0) { setReady(true); return }
+
+    const imgs = ALL_IMAGES.map((src) => {
+      const img = new Image()
+      img.onload = img.onerror = () => {
+        settled += 1
+        if (settled === total) setReady(true)
+      }
+      img.src = src
+      return img
+    })
+
+    return () => {
+      imgs.forEach((img) => { img.onload = null; img.onerror = null })
+    }
+  }, [])
+
+  if (!ready) {
+    return (
+      <div style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <style>{`
+          @keyframes page-spin { to { transform: rotate(360deg); } }
+        `}</style>
+        <div style={{
+          width: '24px',
+          height: '24px',
+          borderRadius: '50%',
+          border: '2px solid rgba(26, 26, 26, 0.15)',
+          borderTopColor: 'rgba(26, 26, 26, 0.6)',
+          animation: 'page-spin 0.75s linear infinite',
+        }} />
+      </div>
+    )
+  }
+
   return (
     <main
       className="w-full pb-24"
@@ -294,24 +321,6 @@ export function ProjectsPage() {
           .project-row > div:last-child {
             width: 100%;
           }
-        }
-        .proj-img-spinner-wrap {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .proj-img-spinner {
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          border: 2px solid rgba(26, 26, 26, 0.15);
-          border-top-color: rgba(26, 26, 26, 0.5);
-          animation: proj-img-spin 0.75s linear infinite;
-        }
-        @keyframes proj-img-spin {
-          to { transform: rotate(360deg); }
         }
       `}</style>
     </main>
