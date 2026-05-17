@@ -18,6 +18,8 @@ const reading: Entry[] = [
   { title: "Notes from Underground", note: "Fyodor Dostoevsky. 1864." },
   { title: "Meditations", note: "Marcus Aurelius. c. 180." },
   { title: "Man's Search for Meaning", note: "Viktor Frankl. 1946." },
+  { title: "The Mom Test", note: "Rob Fitzpatrick. 2013." },
+  { title: "Zero to One", note: "Peter Thiel. 2014." },
   { title: "Source Code", note: "Bill Gates. 2025." },
   {
     title: "Artificial Intelligence: A Modern Approach",
