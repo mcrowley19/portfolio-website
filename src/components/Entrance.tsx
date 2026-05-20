@@ -294,6 +294,8 @@ function ArchivalOverlay({
               src={f.src}
               alt=""
               aria-hidden="true"
+              fetchPriority={isActive ? 'high' : 'low'}
+              decoding="async"
               style={{
                 position: 'absolute',
                 inset: 0,
