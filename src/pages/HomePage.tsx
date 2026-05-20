@@ -2,7 +2,7 @@ import { Hero } from "../sections/Hero";
 import { About } from "../sections/About";
 import { Contact } from "../sections/Contact";
 import { ArtemisVideo } from "../components/ArtemisVideo";
-import heroPhoto from "../assets/hero-photo.png";
+import heroPhoto from "../assets/hero-photo.webp";
 
 export function HomePage() {
   return (

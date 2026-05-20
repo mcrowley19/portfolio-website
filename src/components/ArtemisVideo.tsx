@@ -49,7 +49,7 @@ export function ArtemisVideo({ width, maxHeight }: ArtemisVideoProps = {}) {
           muted
           playsInline
           loop={false}
-          preload="auto"
+          preload="metadata"
           className="block h-full w-full"
           style={{ objectFit: 'cover', objectPosition: 'center' }}
         />
@@ -72,7 +72,7 @@ export function ArtemisVideo({ width, maxHeight }: ArtemisVideoProps = {}) {
           muted
           playsInline
           loop={false}
-          preload="auto"
+          preload="metadata"
           className="block w-full"
         />
       </div>

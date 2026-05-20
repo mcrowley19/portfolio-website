@@ -1,14 +1,14 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
-import trinityImage from '../assets/trinity.jpg'
-import deepBlueImage from '../assets/deepblue.jpg'
+import trinityImage from '../assets/trinity.webp'
+import deepBlueImage from '../assets/deepblue.webp'
 // Hamilton plaque: Wikimedia Commons, "Inscription on Broom Bridge ...
 // Quaternions multiplication by Sir William Rowan Hamilton" (3803x2487).
 // A direct photograph rather than a line drawing: it sits adjacent to the
 // Trinity engraving once colour-graded (grayscale + raised contrast), and
 // keeps the documentary register the entrance is built around. Lower-res
 // alternatives on Commons washed out at the entrance scale.
-import hamiltonImage from '../assets/hamilton.jpg'
+import hamiltonImage from '../assets/hamilton.webp'
 import { usePrefersReducedMotion } from '../lib/useReducedMotion'
 
 const SESSION_KEY = 'hasVisited'

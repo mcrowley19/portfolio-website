@@ -8,9 +8,24 @@ const links = [
   { to: '/reading', label: 'Reading' },
 ]
 
+// Warm the lazy chunk for each route on first user intent. Vite hashes
+// these dynamic imports into their own chunks; running the import now
+// fetches the chunk and parses it so the route swap is instant when the
+// click lands.
+const chunkLoaders: Record<string, () => Promise<unknown>> = {
+  '/projects': () => import('../pages/ProjectsPage'),
+  '/reading': () => import('../pages/ReadingPage'),
+}
+
+const warmedChunks = new Set<string>()
+
 function warmRoute(to: string) {
   const imgs = routeImages[to]
   if (imgs && imgs.length) prefetchImages(imgs)
+  if (!warmedChunks.has(to)) {
+    warmedChunks.add(to)
+    chunkLoaders[to]?.().catch(() => warmedChunks.delete(to))
+  }
 }
 
 export function Nav() {
