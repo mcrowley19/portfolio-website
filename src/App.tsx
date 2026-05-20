@@ -7,11 +7,11 @@ import { ProjectsPage } from './pages/ProjectsPage'
 import { ProjectPage } from './pages/ProjectPage'
 import { ReadingPage } from './pages/ReadingPage'
 import { schedulePrefetch } from './lib/prefetch'
-import { projectsRouteImages } from './lib/routeAssets'
+import { allRouteImages } from './lib/routeAssets'
 
 function App() {
   useEffect(() => {
-    schedulePrefetch(projectsRouteImages)
+    schedulePrefetch(allRouteImages)
   }, [])
 
   return (

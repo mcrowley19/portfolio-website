@@ -13,6 +13,7 @@ import snapswingImg from '../assets/projects/snapswing.webp?url'
 import linearOpsImg from '../assets/projects/linear-ops.webp?url'
 import learnquotesImg from '../assets/projects/learnquotes.webp?url'
 import tempHumidityImg from '../assets/projects/temp&h.webp?url'
+import sceneImg from '../assets/scene.webp?url'
 
 export const projectsRouteImages: readonly string[] = [
   lockupImg,
@@ -27,8 +28,15 @@ export const projectsRouteImages: readonly string[] = [
   tempHumidityImg,
 ]
 
+export const readingRouteImages: readonly string[] = [sceneImg]
+
+export const allRouteImages: readonly string[] = [
+  ...projectsRouteImages,
+  ...readingRouteImages,
+]
+
 export const routeImages: Record<string, readonly string[]> = {
   '/projects': projectsRouteImages,
-  '/reading': [],
+  '/reading': readingRouteImages,
   '/': [],
 }
