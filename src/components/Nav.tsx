@@ -1,10 +1,17 @@
 import { NavLink } from 'react-router-dom'
+import { prefetchImages } from '../lib/prefetch'
+import { routeImages } from '../lib/routeAssets'
 
 const links = [
   { to: '/', label: 'Home' },
   { to: '/projects', label: 'Projects' },
   { to: '/reading', label: 'Reading' },
 ]
+
+function warmRoute(to: string) {
+  const imgs = routeImages[to]
+  if (imgs && imgs.length) prefetchImages(imgs)
+}
 
 export function Nav() {
   return (
@@ -13,6 +20,9 @@ export function Nav() {
         <NavLink
           key={to}
           to={to}
+          onMouseEnter={() => warmRoute(to)}
+          onFocus={() => warmRoute(to)}
+          onTouchStart={() => warmRoute(to)}
           className={({ isActive }) =>
             [
               'font-body font-light text-[0.9rem] lowercase tracking-normal transition-colors',
