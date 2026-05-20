@@ -44,6 +44,8 @@ const reading: Entry[] = [
   { title: "The Myth of Sisyphus", note: "Albert Camus. 1942." },
   { title: "The Divine Comedy", note: "Dante Alighieri. c. 1320." },
   { title: "Dubliners", note: "James Joyce. 1914." },
+  { title: "Zero to One", note: "Peter Thiel & Blake Masters. 2014." },
+  { title: "The Mom Test", note: "Rob Fitzpatrick. 2013." },
 ];
 
 export function Reading() {
