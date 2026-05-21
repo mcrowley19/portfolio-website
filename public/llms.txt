@@ -1,0 +1,22 @@
+# Michael Crowley
+
+> Computer Science student at Trinity College Dublin, CTO and co-founder of Lockup (a phone-management app for schools). Builds for LLM tooling, full-stack web, and hardware prototypes; based between Dublin and Austria.
+
+The website is a React single-page app — most page content is rendered client-side. The files below give LLM-friendly access to the same content as plain text and structured data.
+
+## Pages
+
+- [Home](https://michaelcrowley.dev/): Name, short bio, contact details.
+- [Projects](https://michaelcrowley.dev/projects): Eleven projects with role, dates, tech stacks, and links.
+- [Reading](https://michaelcrowley.dev/reading): Annotated list of recommended books.
+
+## Machine-readable resources
+
+- [llms-full.txt](https://michaelcrowley.dev/llms-full.txt): Full bio, every project, the full reading list, and contact details as one markdown document. Best single fetch for full context.
+- [sitemap.xml](https://michaelcrowley.dev/sitemap.xml): All canonical URLs.
+
+## Contact
+
+- email: michaelcrowley931@gmail.com
+- github: https://github.com/mcrowley19
+- x / twitter: https://x.com/notmcrowley

@@ -1,0 +1,138 @@
+# Michael Crowley
+
+Computer Science student at Trinity College Dublin. CTO and co-founder of Lockup, a phone-management app for schools. Most personal output lives on the Projects page; current interests are large language models, helping rural-Ireland students into the tech industry, and shipping fast.
+
+Currently building Lockup at Alpine Valley in Austria, preparing demos for schools across the 26/27 academic year.
+
+If any of this is interesting, reach out across any of the socials at the bottom of the page.
+
+## Contact
+
+- email: michaelcrowley931@gmail.com
+- github: https://github.com/mcrowley19
+- x / twitter: https://x.com/notmcrowley
+- website: https://michaelcrowley.dev
+
+## Projects
+
+### I. Lockup — 2026 (April 2026 – present)
+- Role: CTO
+- Status: Active — school trials beginning the 26/27 academic year
+- Link: https://lockup-app.com
+- Stack: React Native
+
+The app that locks phones in schools. My main project for now and the foreseeable future. Lockup is an app I have been developing along with Carlos Cejas and Cillian Cooke, leading the phone-free movement in schools through software based restrictions. I have been working on the app as the CTO, developing a system to lock students' phones while also providing compliance detection and unlocking capabilities to teachers. Of course, as with all small startups, my role has dipped into cold calling, meetings and composing VC applications, something which has taught me an immense amount. Lockup is currently beginning trials in a select number of schools for the 26/27 year.
+
+### II. Sol-450 — 2026 (March 2026)
+- Role: Full-stack developer
+- Status: Shipped — START Hack 2026 entry
+- Link: https://github.com/mcrowley19/mars-food-simulation
+- Stack: React, Three.js, Python, AWS
+
+An AI-managed simulation of growing food on Mars, built in 36 hours as part of a team of four during START Hack 2026 for the Syngenta / AWS track and using data from an MCP server they provided. A Python file hosted as an AWS Lambda function simulates conditions on Mars (dust storms, CO2 spikes, water leakages); a system of AI agents collaborates to tweak greenhouse parameters via a DynamoDB table so astronauts have enough resources for the trip. Agents are hosted on Amazon Bedrock AgentCore. Frontend in React, hosted on AWS Amplify; 3D rendering via Three.js. I worked as a full-stack developer and made the most commits on the team. Demo video: https://youtu.be/oY_2HvcdY9s.
+
+### III. Shoelace — 2026 (March 2026)
+- Role: Solo developer
+- Status: Shipped — Gemini Live Agent Hackathon entry
+- Link: https://github.com/mcrowley19/shoelace
+- Stack: React, Python, FastAPI, Gemini API, Google Cloud
+
+An accessibility Android app that guides children and individuals with disabilities through completing day-to-day tasks. Multi-modal inputs are sent to the Gemini Live API which plays audio responses walking the user through each step. FastAPI backend, React frontend, hosted on Google Cloud Run. Built solo for the online Gemini Live Agent Hackathon.
+
+### IV. Flight Visualiser — 2026 (March 2026)
+- Role: Full-stack developer
+- Status: Shipped — Trinity coursework
+- Link: https://github.com/mcrowley19/programming-project
+- Stack: JavaScript, React, Python, FastAPI
+
+US flight paths drawn over a map of the country. Coursework for my CS course at Trinity, done in a team of four; I worked as a full-stack developer and was the largest contributor to the repo. The brief was a CSV visualiser; we ran past it and shipped an interactive React + FastAPI app.
+
+### V. Metricare — 2026 (February 2026)
+- Role: Full-stack developer
+- Status: Live with sample data
+- Link: https://metricare.vercel.app/
+- Stack: React, TypeScript, Python, FastAPI, Gemini API, Vercel
+
+A clinician dashboard that summarises patient data and flags possible drug-to-drug interactions. Fully FHIR-compliant backend (Python + FastAPI on Render). React frontend on Vercel. Built in 8 hours at the Trinity Advanced Health hackathon in a team of three; I was the largest contributor.
+
+### VI. Kangrat — 2026 (February 2026)
+- Role: Solo developer
+- Status: Live
+- Link: https://kangrat.com/
+- Stack: React, TypeScript, Firebase, Algolia
+
+A LinkedIn-style professional networking app. Users create profiles with work history, connect with others, and send direct messages. Gamified XP / levelling rewards activity; a people-discovery page and full-text search via Algolia. React + TypeScript frontend; Firebase Auth, Firestore, and Firebase Storage on the backend.
+
+### VII. micrograd-java — 2026 (January 2026)
+- Role: Solo developer
+- Status: Shipped
+- Link: https://github.com/mcrowley19/micrograd-java
+- Stack: Java, Maven
+
+A Java port of Andrej Karpathy's scalar-valued autograd engine with a small neural-net library on top, built as practice for my Intro to Programming class. Class-structured; supports backpropagation, Neuron objects, Layers, and a multi-layer perceptron. Built and installable with Maven.
+
+### VIII. Snap and Swing — 2025 (December 2025)
+- Role: Solo developer
+- Status: Live on Snapchat — 14M+ plays, 2nd place 2D at the Snap Lensathon
+- Link: https://www.snapchat.com
+- Stack: TypeScript, Snap Lens Studio
+
+A Snapchat Lens game built solo over the winter break for the Snap Games Lensathon. Players swing from island to island, collecting coins and avoiding birds. 14M plays in three months, 2nd place in the 2D category ($1.5k prize).
+
+### IX. LinearOps — 2025 (November 2025)
+- Role: Solo developer
+- Status: Shipped
+- Link: https://github.com/mcrowley19/LinearOps
+- Stack: Python
+
+A small Python library for matrix and vector operations, written from scratch as a way to practice linear algebra and Python skills. Built in three days.
+
+### X. learnquotes.com — 2025 (July 2025)
+- Role: Solo developer
+- Status: Live
+- Link: https://learnquotes.com/
+- Stack: React, AWS
+
+A revision game for Leaving Cert students learning Shakespeare quotes. Students highlight quotes and add them to their collection; characters are then randomly removed and the student fills in the blanks. React frontend hosted on AWS Amplify. Built after my own Leaving Cert in the summer of 2025.
+
+### XI. Temperature & Humidity Tracker — 2025 (March 2025)
+- Role: Solo developer
+- Status: Presented at an Irish Department of Education conference
+- Link: https://github.com/mcrowley19
+- Stack: Cloudflare, Flask, DHT22 sensors, Raspberry Pi
+
+A site that displays humidity and temperature data from sensors around our house. DHT22 sensors connected to Raspberry Picos send data over client/socket connections to a central Raspberry Pi; the Pi renders Plotly graphs and serves them via Flask. Frontend ran locally, made publicly accessible via Cloudflare Tunneling. Presented to an audience of teachers at a conference organised by the Irish Department of Education.
+
+## Reading list
+
+A list of books I recommend. Inspired by Patrick Collison's bookshelf (https://patrickcollison.com/bookshelf).
+
+- The Picture of Dorian Gray — Oscar Wilde. 1890.
+- Thus Spoke Zarathustra — Friedrich Nietzsche. 1885.
+- The Brothers Karamazov — Fyodor Dostoevsky. 1880.
+- War and Peace — Leo Tolstoy. 1869.
+- The Count of Monte Cristo — Alexandre Dumas. 1844.
+- Les Misérables — Victor Hugo. 1862.
+- The Stranger — Albert Camus. 1942.
+- Notes from Underground — Fyodor Dostoevsky. 1864.
+- Meditations — Marcus Aurelius. c. 180.
+- Man's Search for Meaning — Viktor Frankl. 1946.
+- Source Code — Bill Gates. 2025.
+- Artificial Intelligence: A Modern Approach — Stuart Russell & Peter Norvig. 2020.
+- Wuthering Heights — Emily Brontë. 1847.
+- The Idiot — Fyodor Dostoevsky. 1869.
+- Introduction to Machine Learning with Python — Andreas C. Müller & Sarah Guido. 2016.
+- The Death of Ivan Ilyich — Leo Tolstoy. 1886.
+- Jane Eyre — Charlotte Brontë. 1847.
+- Discrete Mathematics and Its Applications — Kenneth H. Rosen. 1988.
+- Nausea — Jean-Paul Sartre. 1938.
+- For Whom the Bell Tolls — Ernest Hemingway. 1940.
+- The Plague — Albert Camus. 1947.
+- Heart of Darkness — Joseph Conrad. 1899.
+- Things Fall Apart — Chinua Achebe. 1958.
+- Fahrenheit 451 — Ray Bradbury. 1953.
+- The Myth of Sisyphus — Albert Camus. 1942.
+- The Divine Comedy — Dante Alighieri. c. 1320.
+- Dubliners — James Joyce. 1914.
+- Zero to One — Peter Thiel & Blake Masters. 2014.
+- The Mom Test — Rob Fitzpatrick. 2013.

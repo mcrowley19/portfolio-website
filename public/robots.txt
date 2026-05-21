@@ -1,0 +1,55 @@
+# Allow all crawlers — including LLM/AI training and answer crawlers.
+# Recruiters increasingly ask LLM assistants to read candidate sites,
+# and there is nothing sensitive on this domain.
+
+User-agent: *
+Allow: /
+
+# Named explicitly so future bot-blocking defaults in CDNs / WAFs don't
+# accidentally lock these out.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+Sitemap: https://michaelcrowley.dev/sitemap.xml
