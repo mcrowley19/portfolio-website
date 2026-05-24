@@ -80,10 +80,16 @@ html, body {
   padding-right: 1.5rem;
 }
 
+.home-hero-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
 .home-portrait {
   display: block;
-  width: 240px;
-  max-width: 240px;
+  width: 300px;
+  max-width: 300px;
   height: auto;
   margin-top: 3rem;
   margin-bottom: 2.5rem;
@@ -101,9 +107,13 @@ html, body {
     padding-right: 1rem;
   }
 
+  .home-hero-title {
+    font-size: 2rem;
+  }
+
   .home-portrait {
-    width: 180px;
-    max-width: 180px;
+    width: 220px;
+    max-width: 220px;
   }
 
   .home-prose-row {

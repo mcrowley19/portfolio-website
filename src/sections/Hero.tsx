@@ -7,8 +7,7 @@ export function Hero() {
     >
       <div style={{ maxWidth: "580px" }}>
         <h1
-          className="font-display text-ink-primary"
-          style={{ fontSize: "1.5rem", fontWeight: 300, lineHeight: 1.2 }}
+          className="font-display text-ink-primary home-hero-title"
         >
           Michael Crowley
         </h1>

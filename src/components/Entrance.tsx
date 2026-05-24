@@ -129,9 +129,12 @@ function ArchivalOverlay({
 }) {
   return (
     <div
+      className="entrance-overlay"
       style={{
         position: 'fixed',
         inset: 0,
+        width: '100vw',
+        height: '100dvh',
         zIndex: 50,
         pointerEvents: 'none',
         backgroundColor: '#0E0C09',
@@ -158,6 +161,14 @@ function ArchivalOverlay({
           80%  { transform: translate3d(3%, 2%, 0); }
           100% { transform: translate3d(0, 0, 0); }
         }
+        @media (max-width: 768px) {
+          .entrance-frame-img {
+            object-position: center top;
+            object-fit: cover;
+            width: 100vw !important;
+            height: 100dvh !important;
+          }
+        }
       `}</style>
 
       <img
@@ -166,6 +177,7 @@ function ArchivalOverlay({
         aria-hidden="true"
         fetchPriority="high"
         decoding="async"
+        className="entrance-frame-img"
         style={{
           position: 'absolute',
           inset: 0,
@@ -221,6 +233,40 @@ function ArchivalOverlay({
           animation: reducedMotion ? 'none' : 'entrance-grain 1.4s steps(6) infinite',
         }}
       />
+
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 0px))',
+          left: '1.5rem',
+          right: '1.5rem',
+          pointerEvents: 'none',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.625rem',
+        }}
+      >
+        <div
+          style={{
+            flex: '0 0 20px',
+            height: '1px',
+            backgroundColor: 'rgba(255, 255, 255, 0.45)',
+          }}
+        />
+        <span
+          style={{
+            fontFamily: 'JetBrains Mono, ui-monospace, monospace',
+            fontSize: '0.6rem',
+            letterSpacing: '0.14em',
+            color: 'rgba(255, 255, 255, 0.55)',
+            textTransform: 'uppercase',
+            lineHeight: 1,
+          }}
+        >
+          {entranceFrame.caption}
+        </span>
+      </div>
     </div>
   )
 }

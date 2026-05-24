@@ -7,6 +7,7 @@ export type EntranceFrame = {
   filter: string
   from: string
   to: string
+  caption: string
 }
 
 const FRAMES: readonly EntranceFrame[] = [
@@ -15,18 +16,21 @@ const FRAMES: readonly EntranceFrame[] = [
     filter: 'grayscale(100%) contrast(1.3) brightness(0.85)',
     from: 'scale(1.08) translate3d(-1.5%, 1%, 0)',
     to: 'scale(1.18) translate3d(2%, -1.5%, 0)',
+    caption: 'Trinity College Dublin',
   },
   {
     src: deepBlueUrl,
     filter: 'none',
     from: 'scale(1.10) translate3d(2%, -1%, 0)',
     to: 'scale(1.20) translate3d(-2%, 1.5%, 0)',
+    caption: 'Connemara, Co. Galway',
   },
   {
     src: hamiltonUrl,
     filter: 'grayscale(1) contrast(1.75) brightness(1.1) sepia(0.15)',
     from: 'scale(1.08) translate3d(0%, 1.5%, 0)',
     to: 'scale(1.20) translate3d(-1.5%, -1.5%, 0)',
+    caption: 'Hamilton Building, Dublin',
   },
 ] as const
 
