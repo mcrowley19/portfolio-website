@@ -1,0 +1,18 @@
+---
+interface Props {
+  id: string
+  numeral?: string
+  kicker?: string
+  class?: string
+}
+const { id, kicker, class: className = '' } = Astro.props
+---
+
+<section id={id} class={`scroll-mt-16 ${className}`}>
+  {kicker ? (
+    <header class="mb-10 flex items-baseline gap-6">
+      <span class="font-mono text-kicker uppercase text-ink-secondary">{kicker}</span>
+    </header>
+  ) : null}
+  <slot />
+</section>

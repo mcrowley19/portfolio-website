@@ -1,0 +1,71 @@
+---
+import { ViewTransitions } from 'astro:transitions'
+import Nav from '../components/Nav.astro'
+import { Entrance } from '../components/Entrance'
+import '../styles/global.css'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const {
+  title = 'Michael Crowley — CS at Trinity College Dublin, CTO of Lockup',
+  description = 'Computer Science student at Trinity College Dublin and CTO of Lockup, a phone-management app for schools. Builder of LLM tooling, full-stack web, and hardware prototypes.',
+} = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Michael Crowley" />
+    <link rel="canonical" href={`https://michaelcrowley.dev${Astro.url.pathname}`} />
+    <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLM-friendly site summary" />
+    <link rel="alternate" type="text/markdown" href="/llms-full.txt" title="Full bio, projects, and reading list as markdown" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Michael Crowley" />
+    <meta property="og:description" content="Computer Science student at Trinity College Dublin and CTO of Lockup. Builder of LLM tooling, full-stack web, and hardware prototypes." />
+    <meta property="og:url" content={`https://michaelcrowley.dev${Astro.url.pathname}`} />
+    <meta property="og:locale" content="en_IE" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content="@notmcrowley" />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Michael Crowley",
+      "url": "https://michaelcrowley.dev/",
+      "email": "michaelcrowley931@gmail.com",
+      "jobTitle": "Co-founder & CTO, Lockup",
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "Trinity College Dublin" },
+      "worksFor": { "@type": "Organization", "name": "Lockup", "url": "https://lockup-app.com" },
+      "knowsAbout": ["Large language models", "Full-stack web development", "React", "TypeScript", "Python", "AWS", "Firebase", "Snap Lens Studio"],
+      "sameAs": ["https://github.com/mcrowley19", "https://x.com/notmcrowley"]
+    })} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="942b68b1-341a-4959-a941-569fa2f61d76"></script>
+    <ViewTransitions />
+  </head>
+  <body>
+    <Entrance client:load />
+    <Nav />
+    <slot />
+
+    <!-- Speculation Rules: prerender pages on hover for instant navigation -->
+    <script type="speculationrules" set:html={JSON.stringify({
+      prerender: [{ where: { href_matches: "/*" }, eagerness: "moderate" }]
+    })} />
+  </body>
+</html>
