@@ -1,15 +1,32 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import artemisVideo from '../assets/artemis.mp4'
-import { useEntrance } from './Entrance'
 
 type ArtemisVideoProps = {
   width?: number | string
   maxHeight?: number | string
 }
 
+function useRevealStarted() {
+  const [ready, setReady] = useState(() => {
+    if (typeof document === 'undefined') return false
+    return document.body.classList.contains('entrance-done')
+  })
+  useEffect(() => {
+    if (ready) return
+    const handler = () => setReady(true)
+    window.addEventListener('entrance:done', handler, { once: true })
+    const fallback = setTimeout(() => setReady(true), 5000)
+    return () => {
+      window.removeEventListener('entrance:done', handler)
+      clearTimeout(fallback)
+    }
+  }, [ready])
+  return ready
+}
+
 export function ArtemisVideo({ width, maxHeight }: ArtemisVideoProps = {}) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const { revealStarted } = useEntrance()
+  const revealStarted = useRevealStarted()
 
   useEffect(() => {
     // Hold playback until the entrance overlay has finished — otherwise the

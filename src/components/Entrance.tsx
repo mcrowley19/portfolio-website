@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
-import type { ReactNode } from 'react'
+import { useEffect, useState } from 'react'
 import { entranceFrame } from '../lib/entranceFrame'
 import { usePrefersReducedMotion } from '../lib/useReducedMotion'
 
@@ -10,33 +9,13 @@ const DISINTEGRATE_MS = 1300
 const DISINTEGRATE_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)'
 const KEN_BURNS_DURATION_MS = HOLD_MS + 200
 
-const NAME_OFFSET_MS = HOLD_MS + DISINTEGRATE_MS / 2
-
-const ENTRANCE_DELAYS_S = {
-  name: NAME_OFFSET_MS / 1000,
-  bio1: (NAME_OFFSET_MS + 100) / 1000,
-  bio2: (NAME_OFFSET_MS + 200) / 1000,
-  bio3: (NAME_OFFSET_MS + 300) / 1000,
-  about1: (NAME_OFFSET_MS + 450) / 1000,
-  about2: (NAME_OFFSET_MS + 550) / 1000,
-}
-
 type EntranceMode = 'first-visit' | 'returning'
 
-type EntranceContextValue = {
-  mode: EntranceMode
-  revealStarted: boolean
-  delays: typeof ENTRANCE_DELAYS_S
-}
+type Phase = 'loading' | 'hold' | 'disintegrate' | 'done'
 
-const EntranceContext = createContext<EntranceContextValue>({
-  mode: 'returning',
-  revealStarted: true,
-  delays: ENTRANCE_DELAYS_S,
-})
-
-export function useEntrance() {
-  return useContext(EntranceContext)
+function signalDone() {
+  document.body.classList.add('entrance-done')
+  window.dispatchEvent(new CustomEvent('entrance:done'))
 }
 
 function readInitialMode(): EntranceMode {
@@ -48,12 +27,17 @@ function readInitialMode(): EntranceMode {
   }
 }
 
-type Phase = 'loading' | 'hold' | 'disintegrate' | 'done'
-
-export function EntranceProvider({ children }: { children: ReactNode }) {
+export function Entrance() {
   const reducedMotion = usePrefersReducedMotion()
   const [mode, setMode] = useState<EntranceMode>(readInitialMode)
   const [phase, setPhase] = useState<Phase>(mode === 'first-visit' ? 'loading' : 'done')
+
+  // For returning visitors: signal immediately
+  useEffect(() => {
+    if (mode === 'returning') {
+      signalDone()
+    }
+  }, [mode])
 
   useEffect(() => {
     if (mode !== 'first-visit') return
@@ -93,30 +77,22 @@ export function EntranceProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (phase !== 'disintegrate') return
-    const t = setTimeout(() => setPhase('done'), DISINTEGRATE_MS)
+    const t = setTimeout(() => {
+      setPhase('done')
+      signalDone()
+    }, DISINTEGRATE_MS)
     return () => clearTimeout(t)
   }, [phase])
 
-  const revealStarted =
-    mode === 'returning' || phase === 'disintegrate' || phase === 'done'
-
-  const value = useMemo<EntranceContextValue>(
-    () => ({ mode, revealStarted, delays: ENTRANCE_DELAYS_S }),
-    [mode, revealStarted],
-  )
-
   const showOverlay = mode === 'first-visit' && phase !== 'done'
 
+  if (!showOverlay) return null
+
   return (
-    <EntranceContext.Provider value={value}>
-      {children}
-      {showOverlay ? (
-        <ArchivalOverlay
-          disintegrating={phase === 'disintegrate'}
-          reducedMotion={reducedMotion}
-        />
-      ) : null}
-    </EntranceContext.Provider>
+    <ArchivalOverlay
+      disintegrating={phase === 'disintegrate'}
+      reducedMotion={reducedMotion}
+    />
   )
 }
 

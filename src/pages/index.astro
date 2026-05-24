@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { ArtemisVideo } from '../components/ArtemisVideo'
+import heroPhoto from '../assets/hero-photo.webp'
+---
+
+<BaseLayout>
+  <section id="hero" class="relative w-full home-hero" style="padding-top: 8vh">
+    <div style="max-width: 580px">
+      <h1 class="font-display text-ink-primary home-hero-title">
+        Michael Crowley
+      </h1>
+    </div>
+  </section>
+
+  <main class="home-main w-full pb-24">
+    <img
+      src={heroPhoto.src}
+      class="pointer-events-none home-portrait"
+      alt=""
+      aria-hidden="true"
+      width={heroPhoto.width}
+      height={heroPhoto.height}
+    />
+
+    <!-- Mobile layout -->
+    <div class="lg:hidden">
+      <section id="about" class="scroll-mt-16">
+        <p class="font-display text-body-l text-ink-primary">
+          I study CS at Trinity College Dublin. Alongside this, I am the CTO of Lockup, an app I co-founded to provide schools with a way to easily regulate phone usage.
+        </p>
+      </section>
+      <div class="home-prose-row">
+        <div class="home-prose-col">
+          <section id="about-rest" class="scroll-mt-16">
+            <p class="font-display text-body-l text-ink-primary" style="margin-top: 1.5rem">
+              Most of what I do outside coursework ends up on the Projects page above. My biggest interest at the moment is in large language models and I am in the midst of catching up on relevant research papers. I am also very passionate about helping students from rural Ireland succeed inside the tech industry.
+            </p>
+            <p class="font-display text-body-l text-ink-primary" style="margin-top: 1.5rem">
+              Right now, I am building Lockup at <a href="https://www.alpine-valley.com/" target="_blank" rel="noopener noreferrer" class="underline decoration-1 underline-offset-4 hover:text-accent-vermilion">Alpine Valley</a> in Austria and we are preparing a list of schools for demos over the 26/27 academic period.
+            </p>
+            <p class="font-display text-body-l text-ink-primary" style="margin-top: 1.5rem">
+              If any of the above interests you, feel free to reach out across any of my socials
+            </p>
+          </section>
+        </div>
+        <div class="home-rocket-col">
+          <ArtemisVideo width="100%" client:visible />
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop layout -->
+    <div class="hidden lg:flex lg:items-start lg:gap-32">
+      <div style="flex: 0 0 auto">
+        <section id="about" class="scroll-mt-16" style="max-width: 580px">
+          <p class="font-display text-body-l text-ink-primary">
+            I study CS at Trinity College Dublin. Alongside this, I am the CTO of Lockup, an app I co-founded to provide schools with a way to easily regulate phone usage.
+          </p>
+          <p class="font-display text-body-l text-ink-primary" style="margin-top: 1.5rem">
+            Most of what I do outside coursework ends up on the Projects page above. My biggest interest at the moment is in large language models and I am in the midst of catching up on relevant research papers. I am also very passionate about helping students from rural Ireland succeed inside the tech industry.
+          </p>
+          <p class="font-display text-body-l text-ink-primary" style="margin-top: 1.5rem">
+            Right now, I am building Lockup at <a href="https://www.alpine-valley.com/" target="_blank" rel="noopener noreferrer" class="underline decoration-1 underline-offset-4 hover:text-accent-vermilion">Alpine Valley</a> in Austria and we are preparing a list of schools for demos over the 26/27 academic period.
+          </p>
+          <p class="font-display text-body-l text-ink-primary" style="margin-top: 1.5rem">
+            If any of the above interests you, feel free to reach out across any of my socials
+          </p>
+        </section>
+      </div>
+      <div style="flex: 0 0 auto; margin-left: 3rem">
+        <ArtemisVideo width={240} client:visible />
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="home-contact">
+      <section id="contact" class="scroll-mt-16">
+        <header class="mb-10 flex items-baseline gap-6">
+          <span class="font-mono text-kicker uppercase text-ink-secondary">Contact</span>
+        </header>
+        <ul class="space-y-3 font-mono text-numeral text-ink-primary">
+          <li class="contact-line flex items-baseline gap-x-3 sm:gap-x-6">
+            <span class="contact-label w-16 shrink-0 text-ink-tertiary sm:w-24">email</span>
+            <span class="hidden text-ink-tertiary sm:inline">—</span>
+            <a href="mailto:michaelcrowley931@gmail.com" class="contact-value min-w-0 whitespace-nowrap underline decoration-ink-tertiary underline-offset-4 transition-colors hover:text-accent-vermilion hover:decoration-accent-vermilion">
+              michaelcrowley931@gmail.com
+            </a>
+          </li>
+          <li class="contact-line flex items-baseline gap-x-3 sm:gap-x-6">
+            <span class="contact-label w-16 shrink-0 text-ink-tertiary sm:w-24">github</span>
+            <span class="hidden text-ink-tertiary sm:inline">—</span>
+            <a href="https://github.com/mcrowley19" target="_blank" rel="noreferrer" class="contact-value min-w-0 whitespace-nowrap underline decoration-ink-tertiary underline-offset-4 transition-colors hover:text-accent-vermilion hover:decoration-accent-vermilion">
+              mcrowley19
+            </a>
+          </li>
+          <li class="contact-line flex items-baseline gap-x-3 sm:gap-x-6">
+            <span class="contact-label w-16 shrink-0 text-ink-tertiary sm:w-24">twitter</span>
+            <span class="hidden text-ink-tertiary sm:inline">—</span>
+            <a href="https://x.com/notmcrowley" target="_blank" rel="noreferrer" class="contact-value min-w-0 whitespace-nowrap underline decoration-ink-tertiary underline-offset-4 transition-colors hover:text-accent-vermilion hover:decoration-accent-vermilion">
+              notmcrowley
+            </a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

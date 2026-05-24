@@ -1,32 +1,29 @@
-import sceneUrl from "../assets/scene.webp";
-import appleUrl from "../assets/apple-cropped.png";
+---
+import sceneUrl from '../assets/scene.webp'
+import appleUrl from '../assets/apple-cropped.png'
+---
 
-export function NewtonScene() {
-  return (
-    <div className="newton-scene-wrap">
-      <style>{css}</style>
-      <div
-        className="newton-scene"
-        role="img"
-        aria-label="Etching of Isaac Newton sitting under an apple tree, reading a book."
-      >
-        <div
-          className="newton-bg"
-          style={{ backgroundImage: `url(${sceneUrl})` }}
-          aria-hidden="true"
-        />
-        <img
-          className="newton-apple"
-          src={appleUrl}
-          alt=""
-          aria-hidden="true"
-        />
-      </div>
-    </div>
-  );
-}
+<div class="newton-scene-wrap">
+  <div
+    class="newton-scene"
+    role="img"
+    aria-label="Etching of Isaac Newton sitting under an apple tree, reading a book."
+  >
+    <div
+      class="newton-bg"
+      style={`background-image: url(${sceneUrl.src})`}
+      aria-hidden="true"
+    />
+    <img
+      class="newton-apple"
+      src={appleUrl.src}
+      alt=""
+      aria-hidden="true"
+    />
+  </div>
+</div>
 
-const css = `
+<style is:global>
 .newton-scene {
   /* Scene file is 253 x 409. Container preserves that aspect (190 x 307)
      so the etching isn't stretched. */
@@ -128,4 +125,4 @@ const css = `
     transform: rotate(25deg);
   }
 }
-`;
+</style>

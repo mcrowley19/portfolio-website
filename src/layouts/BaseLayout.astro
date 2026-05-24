@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from 'astro:transitions'
+import { ClientRouter } from 'astro:transitions'
 import Nav from '../components/Nav.astro'
 import { Entrance } from '../components/Entrance'
 import '../styles/global.css'
@@ -56,7 +56,7 @@ const {
       rel="stylesheet"
     />
     <script defer src="https://cloud.umami.is/script.js" data-website-id="942b68b1-341a-4959-a941-569fa2f61d76"></script>
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body>
     <Entrance client:load />
