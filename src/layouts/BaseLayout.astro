@@ -1,7 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions'
 import Nav from '../components/Nav.astro'
-import { Entrance } from '../components/Entrance'
 import '../styles/global.css'
 
 interface Props {
@@ -59,7 +58,6 @@ const {
     <ClientRouter />
   </head>
   <body>
-    <Entrance client:load />
     <Nav />
     <slot />
 
