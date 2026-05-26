@@ -5,6 +5,10 @@ import heroPhoto from '../assets/hero-photo.webp'
 ---
 
 <BaseLayout>
+  <Fragment slot="head-preload">
+    <link rel="preload" as="image" href={heroPhoto.src} fetchpriority="high" />
+  </Fragment>
+
   <section id="hero" class="relative w-full home-hero" style="padding-top: 8vh">
     <div style="max-width: 580px">
       <h1 class="font-display text-ink-primary home-hero-title">
@@ -21,6 +25,8 @@ import heroPhoto from '../assets/hero-photo.webp'
       aria-hidden="true"
       width={heroPhoto.width}
       height={heroPhoto.height}
+      fetchpriority="high"
+      decoding="sync"
     />
 
     <!-- Mobile layout -->
