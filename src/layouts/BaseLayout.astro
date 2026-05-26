@@ -60,7 +60,8 @@ const {
 
     <footer class="page-footer" aria-label="Page load time">
       <span class="page-footer__rule" aria-hidden="true"></span>
-      <span>Rendered in <span id="page-load-time">…</span><span class="page-footer__unit">ms</span></span>
+      <span class="page-footer__label">Rendered in</span>
+      <span class="page-footer__value"><span id="page-load-time">…</span><span class="page-footer__unit">s</span></span>
     </footer>
 
     <script is:inline>
@@ -69,13 +70,14 @@ const {
 
         function format(ms) {
           if (ms == null || ms < 0) return '—';
-          // Browsers clamp performance timings to ~0.1ms for Spectre
-          // mitigation; anything reading 0 is below that floor.
-          if (ms === 0) return '<0.1';
-          if (ms < 1) return ms.toFixed(3);
-          if (ms < 10) return ms.toFixed(2);
-          if (ms < 100) return ms.toFixed(1);
-          return String(Math.round(ms));
+          // Browsers clamp performance timings to ~0.1ms (Spectre
+          // mitigation), so anything reading 0 is below that floor.
+          // We render in seconds; <0.001s = under one millisecond.
+          if (ms < 0.5) return '<0.001';
+          var s = ms / 1000;
+          if (s < 10) return s.toFixed(3);
+          if (s < 100) return s.toFixed(2);
+          return s.toFixed(1);
         }
 
         function show(ms) {
