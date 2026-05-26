@@ -51,7 +51,6 @@ const {
       "sameAs": ["https://github.com/mcrowley19", "https://x.com/notmcrowley"]
     })} />
 
-<script defer src="https://cloud.umami.is/script.js" data-website-id="942b68b1-341a-4959-a941-569fa2f61d76"></script>
     <ClientRouter />
   </head>
   <body>
@@ -59,9 +58,7 @@ const {
     <slot />
 
     <footer class="page-footer" aria-label="Page load time">
-      <span class="page-footer__rule" aria-hidden="true"></span>
-      <span class="page-footer__label">Rendered in</span>
-      <span class="page-footer__value"><span id="page-load-time">…</span><span class="page-footer__unit">s</span></span>
+      <span>Rendered in <span id="page-load-time">…</span><span class="page-footer__unit">s</span></span>
     </footer>
 
     <script is:inline>
@@ -115,9 +112,22 @@ const {
       })();
     </script>
 
-    <!-- Speculation Rules: prerender pages on hover for instant navigation -->
+    <!-- Speculation Rules: prerender on hover for instant navigation -->
     <script type="speculationrules" set:html={JSON.stringify({
-      prerender: [{ where: { href_matches: "/*" }, eagerness: "eager" }]
+      prerender: [{ where: { href_matches: "/*" }, eagerness: "moderate" }]
     })} />
+
+    <!-- Defer analytics until after the page is fully loaded -->
+    <script is:inline>
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          var s = document.createElement('script');
+          s.defer = true;
+          s.src = 'https://cloud.umami.is/script.js';
+          s.setAttribute('data-website-id', '942b68b1-341a-4959-a941-569fa2f61d76');
+          document.head.appendChild(s);
+        }, 0);
+      });
+    </script>
   </body>
 </html>
