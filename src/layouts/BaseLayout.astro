@@ -57,7 +57,7 @@ const {
 
     <!-- Speculation Rules: prerender pages on hover for instant navigation -->
     <script type="speculationrules" set:html={JSON.stringify({
-      prerender: [{ where: { href_matches: "/*" }, eagerness: "moderate" }]
+      prerender: [{ where: { href_matches: "/*" }, eagerness: "eager" }]
     })} />
   </body>
 </html>

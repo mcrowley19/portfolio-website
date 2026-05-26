@@ -1,0 +1,41 @@
+---
+import artemisVideo from '../assets/artemis.mp4'
+
+interface Props {
+  maxWidth?: number | string
+}
+
+const { maxWidth = '100%' } = Astro.props
+const maxWidthStyle = typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth
+---
+
+<div
+  aria-hidden="true"
+  class="artemis-wrap pointer-events-none relative overflow-hidden"
+  style={`width: 100%; max-width: ${maxWidthStyle};`}
+>
+  <video
+    class="artemis-video block w-full"
+    src={artemisVideo}
+    muted
+    playsinline
+    loop={false}
+    preload="none"
+  ></video>
+</div>
+
+<script>
+  for (const video of document.querySelectorAll<HTMLVideoElement>('.artemis-video')) {
+    new IntersectionObserver(
+      (entries, obs) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            ;(entry.target as HTMLVideoElement).play().catch(() => {})
+            obs.disconnect()
+          }
+        }
+      },
+      { threshold: 0.5 },
+    ).observe(video)
+  }
+</script>
