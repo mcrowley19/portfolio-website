@@ -58,94 +58,48 @@ const {
     <Nav />
     <slot />
 
-    <footer class="page-footer" aria-label="Page performance telemetry">
-      <div class="page-footer__rule" aria-hidden="true"></div>
-      <div class="page-footer__heading">Telemetry · this page</div>
-      <div class="page-footer__panel">
-        <div class="page-footer__metric">
-          <span class="page-footer__label">TTFB</span>
-          <span class="page-footer__value"><span id="m-ttfb">—</span><span class="page-footer__unit">ms</span></span>
-        </div>
-        <div class="page-footer__metric">
-          <span class="page-footer__label">DOM Ready</span>
-          <span class="page-footer__value"><span id="m-dom">—</span><span class="page-footer__unit">ms</span></span>
-        </div>
-        <div class="page-footer__metric">
-          <span class="page-footer__label">First Paint</span>
-          <span class="page-footer__value"><span id="m-fcp">—</span><span class="page-footer__unit">ms</span></span>
-        </div>
-        <div class="page-footer__metric">
-          <span class="page-footer__label">Largest Paint</span>
-          <span class="page-footer__value"><span id="m-lcp">—</span><span class="page-footer__unit">ms</span></span>
-        </div>
-        <div class="page-footer__metric">
-          <span class="page-footer__label">Transfer</span>
-          <span class="page-footer__value"><span id="m-bytes">—</span><span class="page-footer__unit">kb</span></span>
-        </div>
-      </div>
+    <footer class="page-footer" aria-label="Page load time">
+      <span class="page-footer__rule" aria-hidden="true"></span>
+      <span>Rendered in <span id="page-load-time">…</span><span class="page-footer__unit">ms</span></span>
     </footer>
 
     <script is:inline>
       (function () {
-        var data = { ttfb: null, dom: null, fcp: null, lcp: null, bytes: null };
+        var navStart = null;
 
-        function format(v, dp) {
-          if (v == null) return '—';
-          if (v < 10) return v.toFixed(dp == null ? 2 : dp);
-          if (v < 100) return v.toFixed(1);
-          return String(Math.round(v));
+        function format(ms) {
+          if (ms == null || ms < 0) return '—';
+          if (ms < 1) return ms.toFixed(3);
+          if (ms < 10) return ms.toFixed(2);
+          if (ms < 100) return ms.toFixed(1);
+          return String(Math.round(ms));
         }
 
-        function render() {
-          var elTtfb = document.getElementById('m-ttfb');
-          var elDom = document.getElementById('m-dom');
-          var elFcp = document.getElementById('m-fcp');
-          var elLcp = document.getElementById('m-lcp');
-          var elBytes = document.getElementById('m-bytes');
-          if (elTtfb) elTtfb.textContent = format(data.ttfb);
-          if (elDom) elDom.textContent = format(data.dom);
-          if (elFcp) elFcp.textContent = format(data.fcp);
-          if (elLcp) elLcp.textContent = format(data.lcp);
-          if (elBytes) elBytes.textContent = data.bytes == null ? '—' : format(data.bytes, 1);
+        function show(ms) {
+          var el = document.getElementById('page-load-time');
+          if (el) el.textContent = format(ms);
         }
 
-        function readNav() {
+        function measureInitial() {
           var nav = performance.getEntriesByType('navigation')[0];
           if (!nav) return;
-          data.ttfb = Math.max(0, nav.responseStart - nav.fetchStart);
-          data.dom = Math.max(0, nav.domContentLoadedEventEnd - nav.fetchStart);
-          if (nav.encodedBodySize != null) data.bytes = nav.encodedBodySize / 1024;
-          render();
+          show(Math.max(0, nav.domContentLoadedEventEnd - nav.fetchStart));
         }
 
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
-          requestAnimationFrame(readNav);
+          requestAnimationFrame(measureInitial);
         } else {
-          window.addEventListener('DOMContentLoaded', readNav);
+          window.addEventListener('DOMContentLoaded', measureInitial);
         }
 
-        if (window.PerformanceObserver) {
-          try {
-            new PerformanceObserver(function (list) {
-              list.getEntries().forEach(function (e) {
-                if (e.name === 'first-contentful-paint') {
-                  data.fcp = e.startTime;
-                  render();
-                }
-              });
-            }).observe({ type: 'paint', buffered: true });
-          } catch (e) {}
-
-          try {
-            new PerformanceObserver(function (list) {
-              var entries = list.getEntries();
-              if (entries.length) {
-                data.lcp = entries[entries.length - 1].startTime;
-                render();
-              }
-            }).observe({ type: 'largest-contentful-paint', buffered: true });
-          } catch (e) {}
-        }
+        document.addEventListener('astro:before-preparation', function () {
+          navStart = performance.now();
+        });
+        document.addEventListener('astro:page-load', function () {
+          if (navStart === null) return;
+          show(performance.now() - navStart);
+          navStart = null;
+        });
       })();
     </script>
 
