@@ -104,6 +104,36 @@ html, body {
   margin-top: 5rem;
 }
 
+.page-footer {
+  max-width: 80rem;
+  margin: 5rem auto 2rem;
+  padding: 0 1.5rem 0 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-tertiary);
+  line-height: 1;
+}
+
+.page-footer__rule {
+  width: 20px;
+  height: 1px;
+  background-color: var(--color-ink-tertiary);
+  opacity: 0.45;
+}
+
+@media (min-width: 640px) {
+  .page-footer {
+    padding-left: 1.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
 @media (max-width: 1023px) {
   .home-hero,
   .home-main {

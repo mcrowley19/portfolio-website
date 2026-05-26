@@ -58,6 +58,40 @@ const {
     <Nav />
     <slot />
 
+    <footer class="page-footer" aria-label="Page load time">
+      <span class="page-footer__rule" aria-hidden="true"></span>
+      <span>Rendered in <span id="page-load-time">…</span>ms</span>
+    </footer>
+
+    <script is:inline>
+      (function () {
+        var navStart = null;
+        function show(ms) {
+          var el = document.getElementById('page-load-time');
+          if (!el) return;
+          el.textContent = ms < 1 ? '<1' : String(ms);
+        }
+        function measureInitial() {
+          var nav = performance.getEntriesByType('navigation')[0];
+          if (!nav) return;
+          show(Math.round(nav.domContentLoadedEventEnd - nav.fetchStart));
+        }
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+          requestAnimationFrame(measureInitial);
+        } else {
+          window.addEventListener('DOMContentLoaded', measureInitial);
+        }
+        document.addEventListener('astro:before-preparation', function () {
+          navStart = performance.now();
+        });
+        document.addEventListener('astro:page-load', function () {
+          if (navStart === null) return;
+          show(Math.round(performance.now() - navStart));
+          navStart = null;
+        });
+      })();
+    </script>
+
     <!-- Speculation Rules: prerender pages on hover for instant navigation -->
     <script type="speculationrules" set:html={JSON.stringify({
       prerender: [{ where: { href_matches: "/*" }, eagerness: "eager" }]
