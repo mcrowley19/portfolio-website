@@ -24,51 +24,61 @@ const maxWidthStyle = typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth
   ></video>
 </div>
 
-<script>
-  const STORAGE_KEY = 'artemis-start-ts'
+<script is:inline>
+  (function () {
+    if (window.__artemisInit) return;
+    window.__artemisInit = true;
 
-  function startOrResume(video: HTMLVideoElement) {
-    const stored = sessionStorage.getItem(STORAGE_KEY)
-    if (!stored) {
-      sessionStorage.setItem(STORAGE_KEY, Date.now().toString())
-      video.play().catch(() => {})
-      return
-    }
+    var STORAGE_KEY = 'artemis-start-ts';
 
-    const seek = () => {
-      const elapsed = (Date.now() - Number(stored)) / 1000
-      const dur = video.duration
-      if (Number.isFinite(dur) && elapsed >= dur) {
-        try { video.currentTime = dur } catch {}
+    function startOrResume(video) {
+      var stored = sessionStorage.getItem(STORAGE_KEY);
+      if (!stored) {
+        sessionStorage.setItem(STORAGE_KEY, Date.now().toString());
+        video.play().catch(function () {});
+        return;
+      }
+      function seek() {
+        var elapsed = (Date.now() - Number(stored)) / 1000;
+        var dur = video.duration;
+        if (isFinite(dur) && elapsed >= dur) {
+          try { video.currentTime = dur; } catch (e) {}
+        } else {
+          try { video.currentTime = elapsed; } catch (e) {}
+          video.play().catch(function () {});
+        }
+      }
+      if (video.readyState >= 1) {
+        seek();
       } else {
-        try { video.currentTime = elapsed } catch {}
-        video.play().catch(() => {})
+        video.addEventListener('loadedmetadata', seek, { once: true });
+        video.load();
       }
     }
 
-    if (video.readyState >= 1) {
-      seek()
+    function setupVideos() {
+      var videos = document.querySelectorAll('.artemis-video');
+      for (var i = 0; i < videos.length; i++) {
+        (function (video) {
+          new IntersectionObserver(
+            function (entries, obs) {
+              for (var j = 0; j < entries.length; j++) {
+                if (entries[j].isIntersecting) {
+                  obs.disconnect();
+                  startOrResume(entries[j].target);
+                }
+              }
+            },
+            { threshold: 0.5 },
+          ).observe(video);
+        })(videos[i]);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupVideos);
     } else {
-      video.addEventListener('loadedmetadata', seek, { once: true })
-      video.load()
+      setupVideos();
     }
-  }
-
-  function setupVideos() {
-    for (const video of document.querySelectorAll<HTMLVideoElement>('.artemis-video')) {
-      new IntersectionObserver(
-        (entries, obs) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) {
-              obs.disconnect()
-              startOrResume(entry.target as HTMLVideoElement)
-            }
-          }
-        },
-        { threshold: 0.5 },
-      ).observe(video)
-    }
-  }
-
-  document.addEventListener('astro:page-load', setupVideos)
+  })();
 </script>

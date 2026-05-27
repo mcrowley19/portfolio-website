@@ -124,7 +124,7 @@ html, body {
 
 @media (max-width: 640px) {
   .page-render-time {
-    top: 2rem;
+    top: 5rem;
   }
 }
 

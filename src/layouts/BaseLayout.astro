@@ -1,5 +1,4 @@
 ---
-import { ClientRouter } from 'astro:transitions'
 import Nav from '../components/Nav.astro'
 import '../styles/global.css'
 import frauncesNormalUrl from '@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2?url'
@@ -50,8 +49,6 @@ const {
       "knowsAbout": ["Large language models", "Full-stack web development", "React", "TypeScript", "Python", "AWS", "Firebase", "Snap Lens Studio"],
       "sameAs": ["https://github.com/mcrowley19", "https://x.com/notmcrowley"]
     })} />
-
-    <ClientRouter />
   </head>
   <body>
     <div class="page-render-time" aria-label="Page load time">
@@ -62,23 +59,13 @@ const {
 
     <script is:inline>
       (function () {
-        var navStart = null;
-
         function format(ms) {
           if (ms == null || ms < 0) return '—';
-          // Browsers clamp performance timings to ~0.1ms (Spectre
-          // mitigation), so anything reading 0 is below that floor.
-          // We render in seconds; <0.001s = under one millisecond.
           if (ms < 0.5) return '<0.001';
           var s = ms / 1000;
           if (s < 10) return s.toFixed(3);
           if (s < 100) return s.toFixed(2);
           return s.toFixed(1);
-        }
-
-        function show(ms) {
-          var el = document.getElementById('page-load-time');
-          if (el) el.textContent = format(ms);
         }
 
         function measureInitial() {
@@ -91,7 +78,8 @@ const {
           var ms = nav.domContentLoadedEventEnd - nav.fetchStart;
           if (ms <= 0) ms = nav.domInteractive - nav.fetchStart;
           if (ms <= 0) ms = nav.responseEnd - nav.fetchStart;
-          show(Math.max(0, ms));
+          var el = document.getElementById('page-load-time');
+          if (el) el.textContent = format(Math.max(0, ms));
         }
 
         if (document.readyState === 'complete') {
@@ -99,15 +87,6 @@ const {
         } else {
           window.addEventListener('load', measureInitial);
         }
-
-        document.addEventListener('astro:before-preparation', function () {
-          navStart = performance.now();
-        });
-        document.addEventListener('astro:page-load', function () {
-          if (navStart === null) return;
-          show(performance.now() - navStart);
-          navStart = null;
-        });
       })();
     </script>
 
