@@ -54,12 +54,11 @@ const {
     <ClientRouter />
   </head>
   <body>
+    <div class="page-render-time" aria-label="Page load time">
+      <span>Rendered in <span id="page-load-time">…</span><span class="page-render-time__unit">s</span></span>
+    </div>
     <Nav />
     <slot />
-
-    <footer class="page-footer" aria-label="Page load time">
-      <span>Rendered in <span id="page-load-time">…</span><span class="page-footer__unit">s</span></span>
-    </footer>
 
     <script is:inline>
       (function () {

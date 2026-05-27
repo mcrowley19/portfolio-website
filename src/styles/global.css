@@ -104,37 +104,30 @@ html, body {
   margin-top: 5rem;
 }
 
-.page-footer {
-  max-width: 80rem;
-  margin: 6rem auto 2.5rem;
-  padding: 0 1.5rem;
-  display: flex;
-  justify-content: flex-end;
-  font-family: var(--font-mono);
-  font-size: 1.05rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-ink-tertiary);
+.page-render-time {
+  position: absolute;
+  top: 2.5rem;
+  left: 1.5rem;
+  font-family: var(--font-body);
+  font-size: var(--text-body-l);
   line-height: 1;
+  color: var(--color-ink-tertiary);
   font-variant-numeric: tabular-nums;
 }
 
-.page-footer #page-load-time {
+.page-render-time #page-load-time {
   color: var(--color-ink-primary);
-  margin: 0 0.1em 0 0.45em;
-  letter-spacing: 0.04em;
+  margin: 0 0.15em 0 0.3em;
 }
 
-.page-footer__unit {
-  margin-left: 0.18em;
+.page-render-time__unit {
+  margin-left: 0.1em;
 }
 
 @media (max-width: 640px) {
-  .page-footer {
-    font-size: 0.9rem;
-    letter-spacing: 0.12em;
-    margin-top: 4.5rem;
-    justify-content: flex-start;
+  .page-render-time {
+    top: 2rem;
+    font-size: var(--text-body-m);
   }
 }
 
