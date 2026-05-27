@@ -6,7 +6,7 @@ import heroPhoto from '../assets/hero-photo.webp'
 
 <BaseLayout>
   <Fragment slot="head-preload">
-    <link rel="preload" as="image" href={heroPhoto.src} fetchpriority="high" />
+    <link rel="preload" as="image" type="image/webp" href={heroPhoto.src} fetchpriority="high" />
   </Fragment>
 
   <section id="hero" class="relative w-full home-hero" style="padding-top: 8vh">

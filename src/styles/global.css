@@ -1,6 +1,5 @@
 @import "@fontsource-variable/fraunces";
 @import "@fontsource-variable/fraunces/wght-italic.css";
-@import "@fontsource-variable/jetbrains-mono";
 
 @import "tailwindcss";
 
@@ -19,7 +18,7 @@ html, body {
 
   --font-display: "Fraunces Variable", serif;
   --font-body: "Fraunces Variable", serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
   --text-display-xl: 6.5rem;
   --text-display-xl--line-height: 1.05;
