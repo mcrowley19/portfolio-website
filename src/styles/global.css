@@ -108,9 +108,9 @@ html, body {
   position: absolute;
   top: 2.5rem;
   left: 1.5rem;
-  font-family: var(--font-body);
-  font-size: var(--text-body-l);
-  line-height: 1;
+  font-family: var(--font-mono);
+  font-size: var(--text-numeral);
+  line-height: var(--text-numeral--line-height);
   color: var(--color-ink-tertiary);
   font-variant-numeric: tabular-nums;
 }
@@ -127,7 +127,6 @@ html, body {
 @media (max-width: 640px) {
   .page-render-time {
     top: 2rem;
-    font-size: var(--text-body-m);
   }
 }
 
