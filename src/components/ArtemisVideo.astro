@@ -25,17 +25,50 @@ const maxWidthStyle = typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth
 </div>
 
 <script>
-  for (const video of document.querySelectorAll<HTMLVideoElement>('.artemis-video')) {
-    new IntersectionObserver(
-      (entries, obs) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            ;(entry.target as HTMLVideoElement).play().catch(() => {})
-            obs.disconnect()
-          }
-        }
-      },
-      { threshold: 0.5 },
-    ).observe(video)
+  const STORAGE_KEY = 'artemis-start-ts'
+
+  function startOrResume(video: HTMLVideoElement) {
+    const stored = sessionStorage.getItem(STORAGE_KEY)
+    if (!stored) {
+      sessionStorage.setItem(STORAGE_KEY, Date.now().toString())
+      video.play().catch(() => {})
+      return
+    }
+
+    const seek = () => {
+      const elapsed = (Date.now() - Number(stored)) / 1000
+      const dur = video.duration
+      if (Number.isFinite(dur) && elapsed >= dur) {
+        try { video.currentTime = dur } catch {}
+      } else {
+        try { video.currentTime = elapsed } catch {}
+        video.play().catch(() => {})
+      }
+    }
+
+    if (video.readyState >= 1) {
+      seek()
+    } else {
+      video.addEventListener('loadedmetadata', seek, { once: true })
+      video.load()
+    }
   }
+
+  function setupVideos() {
+    for (const video of document.querySelectorAll<HTMLVideoElement>('.artemis-video')) {
+      new IntersectionObserver(
+        (entries, obs) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              obs.disconnect()
+              startOrResume(entry.target as HTMLVideoElement)
+            }
+          }
+        },
+        { threshold: 0.5 },
+      ).observe(video)
+    }
+  }
+
+  document.addEventListener('astro:page-load', setupVideos)
 </script>
