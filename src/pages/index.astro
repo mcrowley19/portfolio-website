@@ -1,12 +1,28 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import ArtemisVideo from '../components/ArtemisVideo.astro'
-import heroPhoto from '../assets/hero-photo.webp'
+import { getImage } from 'astro:assets'
+import heroPhotoRaw from '../assets/hero-photo.webp'
+
+const heroImage = await getImage({
+  src: heroPhotoRaw,
+  widths: [220, 440, 600],
+  formats: ['webp'],
+})
+const heroSrcset = heroImage.srcSet.attribute
+const heroSizes = '(max-width: 1023px) 220px, 300px'
 ---
 
 <BaseLayout>
   <Fragment slot="head-preload">
-    <link rel="preload" as="image" type="image/webp" href={heroPhoto.src} fetchpriority="high" />
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      imagesrcset={heroSrcset}
+      imagesizes={heroSizes}
+      fetchpriority="high"
+    />
   </Fragment>
 
   <section id="hero" class="relative w-full home-hero" style="padding-top: 8vh">
@@ -19,12 +35,14 @@ import heroPhoto from '../assets/hero-photo.webp'
 
   <main class="home-main w-full pb-24">
     <img
-      src={heroPhoto.src}
+      src={heroImage.src}
+      srcset={heroSrcset}
+      sizes={heroSizes}
       class="pointer-events-none home-portrait"
       alt=""
       aria-hidden="true"
-      width={heroPhoto.width}
-      height={heroPhoto.height}
+      width={heroPhotoRaw.width}
+      height={heroPhotoRaw.height}
       fetchpriority="high"
       decoding="sync"
     />
