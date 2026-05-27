@@ -62,7 +62,6 @@ html, body {
     color: var(--color-ink-primary);
     background-color: var(--color-paper);
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
   }
 
   body {

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import NewtonScene from '../components/NewtonScene.astro'
+import frauncesItalicUrl from '@fontsource-variable/fraunces/files/fraunces-latin-wght-italic.woff2?url'
 
 type Entry = { title: string; note: string }
 
@@ -47,6 +48,9 @@ const reading: Entry[] = [
 ---
 
 <BaseLayout title="Reading — Michael Crowley">
+  <Fragment slot="head-preload">
+    <link rel="preload" as="font" type="font/woff2" href={frauncesItalicUrl} crossorigin />
+  </Fragment>
   <main class="mx-auto min-h-screen w-full max-w-[80rem] px-6 pb-32 sm:px-10 md:px-16">
     <div class="pt-20 md:pt-32">
       <section id="reading" class="scroll-mt-16 relative">
