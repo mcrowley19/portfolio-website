@@ -68,25 +68,12 @@ const {
           return s.toFixed(1);
         }
 
-        function measureInitial() {
-          var nav = performance.getEntriesByType('navigation')[0];
-          if (!nav) return;
-          // domContentLoadedEventEnd is only populated *after* every DCL
-          // handler has finished, so reading it inside one returns 0. The
-          // load event fires later, by which point it's set; if even that
-          // isn't enough, fall back to domInteractive then responseEnd.
-          var ms = nav.domContentLoadedEventEnd - nav.fetchStart;
-          if (ms <= 0) ms = nav.domInteractive - nav.fetchStart;
-          if (ms <= 0) ms = nav.responseEnd - nav.fetchStart;
-          var el = document.getElementById('page-load-time');
-          if (el) el.textContent = format(Math.max(0, ms));
-        }
+        var el = document.getElementById('page-load-time');
 
-        if (document.readyState === 'complete') {
-          measureInitial();
-        } else {
-          window.addEventListener('load', measureInitial);
-        }
+        new PerformanceObserver(function (list) {
+          var entry = list.getEntries().at(-1);
+          if (el) el.textContent = format(entry.startTime);
+        }).observe({ type: 'largest-contentful-paint', buffered: true });
       })();
     </script>
 
