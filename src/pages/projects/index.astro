@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import lockupImg from '../../assets/projects/lockup.webp'
+import alpineValleyImg from '../../assets/projects/alpine-valley.webp'
 import sol450Img from '../../assets/projects/sol-450.webp'
 import shoelaceImg from '../../assets/projects/shoelace(1).webp'
 import metricareImg from '../../assets/projects/metricare.webp'
@@ -30,15 +31,25 @@ const rows: Row[] = [
     tech: 'React Native',
     link: 'https://lockup-app.com',
     description:
-      'Phone-free classrooms without the pouch drama. Teachers run sessions from a dashboard, students join on their real device, and compliance is visible without policing the door.',
+      'Software-Driven Focus for the Modern Classroom. Lockup is an app I co-founded to give teachers the ability to monitor and restrict student phone usage during class. I am currently working as the CTO and we are in talks with multiple schools for paid pilots over the next school year.',
     image: lockupImg.src,
+  },
+  {
+    name: 'Alpine Valley',
+    date: '2025',
+    tech: 'Web Design',
+    link: 'https://alpine-valley.com',
+    description:
+      'Led a redesign for the website of the startup accelerator Alpine Valley during my time in Cohort Alpha.',
+    image: alpineValleyImg.src,
+    imageObjectFit: 'contain',
   },
   {
     name: 'Sol-450',
     date: 'Mar 2026',
     tech: 'React, Three.js, Python, AWS',
     description:
-      'A 3D simulation of a greenhouse on Mars. Food production managed using 6 AI agents to ensure a stable food supply.',
+      'A 3D simulation of a greenhouse on Mars made as an entry to Start Hack 2026 in 36 hours. Food production managed using 6 AI agents to ensure a stable food supply.',
     image: sol450Img.src,
     imageFilter: 'saturate(1.4) brightness(1.05) contrast(0.95)',
     link: 'https://github.com/mcrowley19/mars-food-simulation',
@@ -58,7 +69,7 @@ const rows: Row[] = [
     date: 'Feb 2026',
     tech: 'React, TypeScript, Python, FastAPI, Gemini API, Vercel',
     description:
-      'An AI medical dashboard designed to summarise patient data for clinicians.',
+      'An AI medical dashboard designed to summarise patient data for clinicians and identify possible contraindications for drugs.',
     image: metricareImg.src,
     imageFilter: 'saturate(0.75) contrast(0.85) brightness(1.05) sepia(0.2)',
     link: 'https://metricare.vercel.app/',
@@ -68,7 +79,7 @@ const rows: Row[] = [
     date: 'Feb 2026',
     tech: 'React, TypeScript, Firebase, Algolia',
     description:
-      'A professional networking platform with profiles, messaging, job discovery, and a gamified XP levelling system.',
+      'A professional networking platform with profiles, messaging, job discovery, and a gamified XP levelling system. Made solely by me in less than one week.',
     image: kangratImg.src,
     imageFilter: 'sepia(0.4) contrast(0.9) brightness(1.05)',
     link: 'https://www.kangrat.com/discover',
@@ -78,7 +89,7 @@ const rows: Row[] = [
     date: 'Jan 2026',
     tech: 'Java, Maven',
     description:
-      "A Java remake of Andrej Karpathy's micrograd engine. A tiny scalar-valued autograd engine and a neural net library on top of it.",
+      "A Java remake of Andrej Karpathy's micrograd engine I made to gain a better understanding of backpropagation.",
     image: microgradJavaImg.src,
     imageFilter: 'sepia(0.35) contrast(0.85) brightness(1.08)',
     link: 'https://github.com/mcrowley19/micrograd-java',
@@ -88,7 +99,7 @@ const rows: Row[] = [
     date: 'Dec 2025',
     tech: 'TypeScript, Snap Lens Studio',
     description:
-      'A swinging Snapchat AR game. Winner of 2nd place in the 2D category at the Snap Lensathon.',
+      'A swinging Snapchat AR game. Winner of 2nd place in the 2D category at the Snap Lensathon. Played over 21 million times.',
     image: snapswingImg.src,
     imageFilter: 'saturate(0.7) contrast(0.85) brightness(1.05) sepia(0.2)',
     link: 'https://devpost.com/software/snap-and-swing',
