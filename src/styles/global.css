@@ -122,10 +122,12 @@ html, body {
 }
 
 .site-footer {
-  padding: 2.5rem 1.5rem 2rem 12vw;
+  padding: 2.5rem 1.5rem 1.25rem 1.5rem;
   font-family: var(--font-mono);
-  font-size: var(--text-numeral);
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
   color: var(--color-ink-tertiary);
+  opacity: 0.55;
 }
 
 @media (max-width: 1023px) {
