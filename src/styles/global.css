@@ -3,18 +3,19 @@
 
 @import "tailwindcss";
 
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 
 @theme {
-  --color-paper: #F4EFE6;
-  --color-paper-deep: #EDE6D8;
-  --color-ink-primary: #1A1A1A;
-  --color-ink-secondary: #5C5751;
-  --color-ink-tertiary: #8A857D;
-  --color-accent-vermilion: #D64727;
-  --color-rule-line: #1A1A1A;
+  --color-paper: #f4efe6;
+  --color-paper-deep: #ede6d8;
+  --color-ink-primary: #1a1a1a;
+  --color-ink-secondary: #5c5751;
+  --color-ink-tertiary: #8a857d;
+  --color-accent-vermilion: #a03346;
+  --color-rule-line: #1a1a1a;
 
   --font-display: "Fraunces Variable", serif;
   --font-body: "Fraunces Variable", serif;
@@ -90,8 +91,8 @@ html, body {
 
 .home-portrait {
   display: block;
-  width: 300px;
-  max-width: 300px;
+  width: 260px;
+  max-width: 260px;
   height: auto;
   margin-top: 3rem;
   margin-bottom: 2.5rem;
@@ -154,8 +155,8 @@ html, body {
   }
 
   .home-portrait {
-    width: 220px;
-    max-width: 220px;
+    width: 190px;
+    max-width: 190px;
   }
 
   .home-prose-row {
