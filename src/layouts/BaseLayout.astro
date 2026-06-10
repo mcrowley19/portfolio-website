@@ -1,7 +1,7 @@
 ---
 import Nav from '../components/Nav.astro'
 import '../styles/global.css'
-import frauncesNormalUrl from '@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2?url'
+import frauncesNormalUrl from '../assets/fonts/fraunces-latin-wght-normal.woff2?url'
 
 interface Props {
   title?: string
@@ -21,7 +21,6 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preload" as="font" type="font/woff2" href={frauncesNormalUrl} crossorigin />
-    <link rel="preconnect" href="https://cloud.umami.is" crossorigin />
     <slot name="head-preload" />
     <title>{title}</title>
     <meta name="description" content={description} />

@@ -2,15 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import ArtemisVideo from '../components/ArtemisVideo.astro'
 import { getImage } from 'astro:assets'
-import heroPhotoRaw from '../assets/new-portfolio.webp'
+import heroPhotoRaw from '../assets/new-portfolio.jpg'
 
+// Rendered at 190px (mobile) / 260px (desktop), so widths cover 1x–2x of
+// each plus 600 for 3x phones; width pins the no-srcset fallback to 520.
 const heroImage = await getImage({
   src: heroPhotoRaw,
-  widths: [220, 440, 600],
-  formats: ['webp'],
+  width: 520,
+  widths: [190, 260, 380, 520, 600],
+  format: 'avif',
 })
 const heroSrcset = heroImage.srcSet.attribute
-const heroSizes = '(max-width: 1023px) 220px, 300px'
+const heroSizes = '(max-width: 1023px) 190px, 260px'
 ---
 
 <BaseLayout>
@@ -18,7 +21,7 @@ const heroSizes = '(max-width: 1023px) 220px, 300px'
     <link
       rel="preload"
       as="image"
-      type="image/webp"
+      type="image/avif"
       imagesrcset={heroSrcset}
       imagesizes={heroSizes}
       fetchpriority="high"

@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import NewtonScene from '../components/NewtonScene.astro'
-import frauncesItalicUrl from '@fontsource-variable/fraunces/files/fraunces-latin-wght-italic.woff2?url'
+import frauncesItalicUrl from '../assets/fonts/fraunces-latin-wght-italic.woff2?url'
+import sceneImage from '../assets/scene.webp'
 
 type Entry = { title: string; note: string }
 
@@ -50,6 +51,9 @@ const reading: Entry[] = [
 <BaseLayout title="Reading — Michael Crowley">
   <Fragment slot="head-preload">
     <link rel="preload" as="font" type="font/woff2" href={frauncesItalicUrl} crossorigin />
+    {/* The Newton scene is a CSS background-image, so without a preload the
+        browser only discovers it after style/layout. */}
+    <link rel="preload" as="image" type="image/webp" href={sceneImage.src} fetchpriority="high" />
   </Fragment>
   <main class="mx-auto min-h-screen w-full max-w-[80rem] px-6 pb-32 sm:px-10 md:px-16">
     <div class="pt-20 md:pt-32">
