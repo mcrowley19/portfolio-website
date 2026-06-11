@@ -175,8 +175,11 @@ body {
 }
 
 @media (max-width: 640px) {
+  /* Tuck it into the top-left corner above the nav line, sized like the
+     footer — a printer's mark, not a headline. */
   .page-render-time {
-    top: 5rem;
+    top: 0.875rem;
+    font-size: 0.625rem;
   }
 }
 
@@ -184,37 +187,31 @@ body {
   .home-hero,
   .home-main {
     padding-left: 1.5rem;
-    padding-right: 1rem;
+    padding-right: 1.5rem;
   }
 
   .home-hero-title {
-    font-size: 2rem;
+    font-size: clamp(2rem, 9.5vw, 2.5rem);
   }
 
   .home-portrait {
-    width: 190px;
-    max-width: 190px;
+    width: 280px;
+    max-width: 280px;
   }
 
-  .home-prose-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 95px;
-    column-gap: 1rem;
-    align-items: start;
+  /* The rocket reads as a print figure: anchored right, bleeding into the
+     right gutter like the Newton scene on the reading page. */
+  .home-rocket-figure {
+    width: min(40vw, 170px);
+    margin: 2.5rem -1.5rem 2.5rem auto;
   }
 
-  .home-prose-col {
-    min-width: 0;
-  }
-
-  .home-rocket-col {
-    min-width: 0;
-    margin-top: 1.5rem;
+  .lg\:hidden section {
+    max-width: 580px;
   }
 
   .lg\:hidden p {
-    font-size: 0.9375rem;
-    line-height: 1.5;
+    font-size: 1.0625rem;
   }
 
   .contact-line {
@@ -224,22 +221,19 @@ body {
   .contact-label {
     width: 3.5rem;
   }
+
+  /* Ground the end of the page with the same hairline rule the project and
+     reading ledgers use. */
+  .home-contact {
+    margin-top: 4rem;
+    padding-top: 2.25rem;
+    border-top: 1px solid rgba(26, 26, 26, 0.12);
+  }
 }
 
 @media (min-width: 400px) and (max-width: 1023px) {
   .contact-line {
     font-size: 0.8125rem;
-  }
-}
-
-@media (min-width: 480px) and (max-width: 1023px) {
-  .home-prose-row {
-    grid-template-columns: minmax(0, 1fr) 110px;
-    column-gap: 1.25rem;
-  }
-
-  .lg\:hidden p {
-    font-size: 1rem;
   }
 }
 
@@ -249,13 +243,21 @@ body {
     padding-left: 6vw;
     padding-right: 1.5rem;
   }
+}
 
-  .home-prose-row {
-    grid-template-columns: minmax(0, 1fr) 130px;
-    column-gap: 1.5rem;
+@media (max-width: 640px) {
+  .home-portrait {
+    width: min(64vw, 280px);
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2.5rem;
+    margin-bottom: 2.75rem;
   }
 
-  .lg\:hidden p {
-    font-size: 1.0625rem;
+  .home-rocket-figure {
+    width: min(34vw, 150px);
+    margin-left: auto;
+    margin-right: auto;
   }
 }
