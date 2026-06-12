@@ -199,11 +199,11 @@ body {
     max-width: 280px;
   }
 
-  /* The rocket reads as a print figure: anchored right, bleeding into the
-     right gutter like the Newton scene on the reading page. */
+  /* The rocket reads as a print figure anchored to the prose column's
+     right edge; on phones it floats so the text wraps around it. */
   .home-rocket-figure {
     width: min(40vw, 170px);
-    margin: 2.5rem -1.5rem 2.5rem auto;
+    margin: 1rem 0 2.5rem auto;
   }
 
   .lg\:hidden section {
@@ -256,8 +256,13 @@ body {
   }
 
   .home-rocket-figure {
-    width: min(34vw, 150px);
-    margin-left: auto;
-    margin-right: auto;
+    float: right;
+    width: min(32vw, 130px);
+    margin: 0.4rem 0 1rem 1.25rem;
+  }
+
+  /* Contain the float so it can never spill into the contact section. */
+  #about-rest {
+    display: flow-root;
   }
 }
